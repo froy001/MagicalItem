@@ -11,6 +11,7 @@ import android.app.Activity;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.support.v4.widget.SimpleCursorAdapter;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -32,6 +33,9 @@ public class ManageCategoriesActivity extends Activity {
 	private MagicalItemsDao magicItemsDao;
 	private Cursor cursor;
 
+	private String textColumn = CategoriesDao.Properties.CategoryName.columnName;
+	private String orderBy = textColumn + " ASC";
+
 	Button bAddCategory, bViewCategoryList;
 	EditText etCategoryName;
 	ListView categories;
@@ -43,14 +47,12 @@ public class ManageCategoriesActivity extends Activity {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.manage_categories);
-		com.froy.magicalitem.dao.DaoMaster.DevOpenHelper helper = new DevOpenHelper(this,
-				MyConstants.DATABASE_NAME, null);
+		com.froy.magicalitem.dao.DaoMaster.DevOpenHelper helper = new DevOpenHelper(
+				this, MyConstants.DATABASE_NAME, null);
 		db = helper.getWritableDatabase();
 		daoMaster = new DaoMaster(db);
 		daoSession = daoMaster.newSession();
 		categorieseDao = daoSession.getCategoriesDao();
-		String textColumn = CategoriesDao.Properties.CategoryName.columnName;
-		String orderBy = textColumn + " COLLATE LOCALIZED ASC";
 		cursor = db
 				.query(categorieseDao.getTablename(),
 						categorieseDao.getAllColumns(), null, null, null, null,
@@ -87,6 +89,7 @@ public class ManageCategoriesActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
+				fillData();
 
 			}
 		});
@@ -117,12 +120,36 @@ public class ManageCategoriesActivity extends Activity {
 			Categories category = new Categories(null, categoryName);
 			categorieseDao.insert(category);
 			cursor.requery();
-			Log.d(TAG, "Category: " + categoryName+ " inserted sucssesfully");
+			Log.d(TAG, "Category: " + categoryName + " inserted sucssesfully");
 			return true;
 		}
-		Log.e(TAG, "Category not updated. EditText id: " + etCategoryName.getId());
+		Log.e(TAG,
+				"Category not updated. EditText id: " + etCategoryName.getId());
 		return false;
 
 	}
 
+	@Override
+	protected void onDestroy() {
+		// TODO Auto-generated method stub
+		super.onDestroy();
+		db.close();
+	}
+
+	protected void fillData() {
+		// TODO Auto-generated method stub
+		startManagingCursor(cursor);
+		cursor = db
+				.query(categorieseDao.getTablename(),
+						categorieseDao.getAllColumns(), null, null, null, null,
+						orderBy);
+		//cursor.requery();
+
+		String[] from = new String[] { CategoriesDao.Properties.CategoryName.columnName };
+		int[] to = { R.id.tvCategryName };
+		SimpleCursorAdapter adapter = new SimpleCursorAdapter(this,
+				R.layout.category_item_layout, cursor, from, to);
+		categories.setAdapter(adapter);
+
+	}
 }
