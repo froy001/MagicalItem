@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="top" >
+
+    <TextView
+        android:id="@+id/tvItemCategory"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:text="@string/tv_item_category"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <Spinner
+        android:id="@+id/spItemCategory"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:layout_below="@+id/tvItemCategory"
+        android:prompt="@string/sp_item_cat_prompt" >
+    </Spinner>
+
+    <TextView
+        android:id="@+id/tvCl"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@id/spItemCategory"
+        android:layout_marginTop="7dp"
+        android:text="@string/tv_max_cl"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <EditText
+        android:id="@+id/etMaxCl"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@id/tvCl"
+        android:ems="10"
+        android:inputType="number" >
+    </EditText>
+
+    <TextView
+        android:id="@+id/tvCost"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@id/etMaxCl"
+        android:layout_marginTop="7dp"
+        android:text="@string/tv_max_item_cost"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <EditText
+        android:id="@+id/etCost"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@id/tvCost"
+        android:ems="10"
+        android:hint="@string/h_et_cost"
+        android:inputType="number" />
+
+    <TextView
+        android:id="@+id/tvCreationTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@id/etCost"
+        android:layout_marginTop="7dp"
+        android:text="@string/tv_max_creation_time"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <EditText
+        android:id="@+id/etMaxTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/tvCreationTime"
+        android:ems="10"
+        android:inputType="number" />
+
+    <TextView
+        android:id="@+id/tvXpCost"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@id/etMaxTime"
+        android:layout_marginTop="7dp"
+        android:text="@string/tv_max_xp_cost"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <EditText
+        android:id="@+id/etMaxXpCost"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/tvXpCost"
+        android:ems="10"
+        android:inputType="number" />
+
+    <Button
+        android:id="@+id/bSearchItem"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginBottom="15dp"
+        android:text="@string/b_search_item" />
+
+    <Button
+        android:id="@+id/bCategories"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/bSearchItem"
+        android:layout_toRightOf="@+id/bSearchItem"
+        android:text="@string/b_manage_categories" />
+
+</RelativeLayout>
