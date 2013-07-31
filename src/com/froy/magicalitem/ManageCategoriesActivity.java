@@ -1,12 +1,5 @@
 package com.froy.magicalitem;
 
-import com.froy.magicalitem.dao.Categories;
-import com.froy.magicalitem.dao.CategoriesDao;
-import com.froy.magicalitem.dao.DaoMaster;
-import com.froy.magicalitem.dao.DaoMaster.DevOpenHelper;
-import com.froy.magicalitem.dao.DaoSession;
-import com.froy.magicalitem.dao.MagicalItemsDao;
-
 import android.app.Activity;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -17,11 +10,23 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.inputmethod.EditorInfo;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
+
+import com.froy.magicalitem.dao.Categories;
+import com.froy.magicalitem.dao.CategoriesDao;
+import com.froy.magicalitem.dao.CategoriesDao.Properties;
+import com.froy.magicalitem.dao.DaoMaster;
+import com.froy.magicalitem.dao.DaoMaster.DevOpenHelper;
+import com.froy.magicalitem.dao.DaoSession;
+import com.froy.magicalitem.dao.MagicalItemsDao;
+
+import de.greenrobot.dao.query.QueryBuilder;
 
 public class ManageCategoriesActivity extends Activity {
 
@@ -33,14 +38,13 @@ public class ManageCategoriesActivity extends Activity {
 	private MagicalItemsDao magicItemsDao;
 	private Cursor cursor;
 
+	private static final String TAG = "ManageCategoriesActivity.java";
 	private String textColumn = CategoriesDao.Properties.CategoryName.columnName;
-	private String orderBy = textColumn + " ASC";
+	private String orderBy = textColumn + " COLLATE LOCALIZED ASC";
 
-	Button bAddCategory, bViewCategoryList;
+	Button bAddCategory, bViewCategoryList, bDeleteCategory;
 	EditText etCategoryName;
 	ListView categories;
-
-	private static final String TAG = "ManageCategoriesActivity.java";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -53,18 +57,17 @@ public class ManageCategoriesActivity extends Activity {
 		daoMaster = new DaoMaster(db);
 		daoSession = daoMaster.newSession();
 		categorieseDao = daoSession.getCategoriesDao();
-		cursor = db
-				.query(categorieseDao.getTablename(),
-						categorieseDao.getAllColumns(), null, null, null, null,
-						orderBy);
+
 		setVariables();
 		setUiListeners();
+		fillData();
 	}
 
 	private void setVariables() {
 		// TODO Auto-generated method stub
 		bAddCategory = (Button) findViewById(R.id.bAddCategory);
 		bViewCategoryList = (Button) findViewById(R.id.bListCategories);
+		bDeleteCategory = (Button) findViewById(R.id.bDeleteCategory);
 		etCategoryName = (EditText) findViewById(R.id.etCategoryName);
 		categories = (ListView) findViewById(R.id.lvCategoryList);
 
@@ -94,6 +97,18 @@ public class ManageCategoriesActivity extends Activity {
 			}
 		});
 
+		// bDeleteCategories set button to delete item from category list by
+		// name
+
+		bDeleteCategory.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				deleteCategory();
+			}
+		});
+
 		// et etCategoryName input listener
 		etCategoryName.setOnEditorActionListener(new OnEditorActionListener() {
 
@@ -108,25 +123,30 @@ public class ManageCategoriesActivity extends Activity {
 				return false;
 			}
 		});
+		
+		categories.setOnItemClickListener(new OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> parent, View v, int position,
+					long id) {
+				// TODO Auto-generated method stub
+				categorieseDao.deleteByKey(id);
+				Log.d(TAG, "Deleted category id: " + id );
+				cursor.requery();
+				
+			}
+		});
+		
+	
 
 	}
+	
+	
 
-	protected boolean addCategory() {
+	@Override
+	protected void onPause() {
 		// TODO Auto-generated method stub
-		int etId = etCategoryName.getId();
-		String categoryName = etCategoryName.getText().toString();
-		etCategoryName.setText("");
-		if (categoryName != null) {
-			Categories category = new Categories(null, categoryName);
-			categorieseDao.insert(category);
-			cursor.requery();
-			Log.d(TAG, "Category: " + categoryName + " inserted sucssesfully");
-			return true;
-		}
-		Log.e(TAG,
-				"Category not updated. EditText id: " + etCategoryName.getId());
-		return false;
-
+		super.onPause();
 	}
 
 	@Override
@@ -136,14 +156,40 @@ public class ManageCategoriesActivity extends Activity {
 		db.close();
 	}
 
-	protected void fillData() {
+	// ///Methods for managing categories
+
+	protected boolean addCategory() {
 		// TODO Auto-generated method stub
-		startManagingCursor(cursor);
 		cursor = db
 				.query(categorieseDao.getTablename(),
 						categorieseDao.getAllColumns(), null, null, null, null,
 						orderBy);
-		//cursor.requery();
+
+		String categoryName = etCategoryName.getText().toString();
+		etCategoryName.setText("");
+		if (categoryName != null) {
+			Categories category = new Categories(null, categoryName);
+			categorieseDao.insert(category);
+			cursor.requery();
+			Log.d(TAG, "Category: " + categoryName + " inserted sucssesfully");
+			fillData();
+			return true;
+		}
+		Log.e(TAG,
+				"Category not updated. EditText id: " + etCategoryName.getId());
+		return false;
+
+	}
+
+	protected void fillData() {
+		// TODO Auto-generated method stub
+		startManagingCursor(cursor);
+		Log.d(TAG, "column name: " + textColumn);
+		cursor = db
+				.query(categorieseDao.getTablename(),
+						categorieseDao.getAllColumns(), null, null, null, null,
+						orderBy);
+		cursor.requery();
 
 		String[] from = new String[] { CategoriesDao.Properties.CategoryName.columnName };
 		int[] to = { R.id.tvCategryName };
@@ -152,4 +198,19 @@ public class ManageCategoriesActivity extends Activity {
 		categories.setAdapter(adapter);
 
 	}
+
+	protected boolean deleteCategory() {
+		// TODO Auto-generated method stub
+		String et = etCategoryName.getText().toString();
+		if (et != null) {
+			QueryBuilder qb = categorieseDao.queryBuilder();
+			qb.where(Properties.CategoryName.eq(et)).buildDelete()
+					.executeDeleteWithoutDetachingEntities();
+			daoSession.clear();
+			fillData();
+			return true;
+		}
+		return false;
+	}
+
 }
