@@ -1,6 +1,8 @@
 package com.froy.magicalitem;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -130,9 +132,36 @@ public class ManageCategoriesActivity extends Activity {
 			public void onItemClick(AdapterView<?> parent, View v, int position,
 					long id) {
 				// TODO Auto-generated method stub
-				categorieseDao.deleteByKey(id);
-				Log.d(TAG, "Deleted category id: " + id );
-				cursor.requery();
+				final long myId = id;
+				
+				// alert dialog to confirm deleting a category
+				DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+				    @Override
+				    public void onClick(DialogInterface dialog, int which) {
+				        switch (which){
+				        case DialogInterface.BUTTON_POSITIVE:
+				            //Yes button clicked
+				        	categorieseDao.deleteByKey(myId);
+							Log.d(TAG, "Deleted category id: " + myId );
+							cursor.requery();
+				            break;
+
+				        case DialogInterface.BUTTON_NEGATIVE:
+				            //No button clicked
+				            break;
+				        }
+				    }
+				};
+
+				AlertDialog.Builder builder = new AlertDialog.Builder(ManageCategoriesActivity.this);
+				builder.setMessage("Are you sure?").setPositiveButton("Yes", dialogClickListener)
+				    .setNegativeButton("No", dialogClickListener).show();
+				
+				
+				
+//				categorieseDao.deleteByKey(id);
+//				Log.d(TAG, "Deleted category id: " + id );
+//				cursor.requery();
 				
 			}
 		});
