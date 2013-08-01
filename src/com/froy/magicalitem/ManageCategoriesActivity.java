@@ -26,7 +26,6 @@ import com.froy.magicalitem.dao.CategoriesDao.Properties;
 import com.froy.magicalitem.dao.DaoMaster;
 import com.froy.magicalitem.dao.DaoMaster.DevOpenHelper;
 import com.froy.magicalitem.dao.DaoSession;
-import com.froy.magicalitem.dao.MagicalItemsDao;
 
 import de.greenrobot.dao.query.QueryBuilder;
 
@@ -37,7 +36,6 @@ public class ManageCategoriesActivity extends Activity {
 	private DaoMaster daoMaster;
 	private DaoSession daoSession;
 	private CategoriesDao categorieseDao;
-	private MagicalItemsDao magicItemsDao;
 	private Cursor cursor;
 
 	private static final String TAG = "ManageCategoriesActivity.java";
@@ -131,7 +129,7 @@ public class ManageCategoriesActivity extends Activity {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View v, int position,
 					long id) {
-				// TODO Auto-generated method stub
+				
 				final long myId = id;
 				
 				// alert dialog to confirm deleting a category
@@ -140,7 +138,7 @@ public class ManageCategoriesActivity extends Activity {
 				    public void onClick(DialogInterface dialog, int which) {
 				        switch (which){
 				        case DialogInterface.BUTTON_POSITIVE:
-				            //Yes button clicked
+				            //Yes button clicked - delete teh category
 				        	categorieseDao.deleteByKey(myId);
 							Log.d(TAG, "Deleted category id: " + myId );
 							cursor.requery();
@@ -177,12 +175,18 @@ public class ManageCategoriesActivity extends Activity {
 		// TODO Auto-generated method stub
 		super.onPause();
 	}
+	
+	
 
 	@Override
 	protected void onDestroy() {
 		// TODO Auto-generated method stub
+		if(db!=null){
+			db.close();
+			daoSession.clear();
+		}
 		super.onDestroy();
-		db.close();
+		
 	}
 
 	// ///Methods for managing categories

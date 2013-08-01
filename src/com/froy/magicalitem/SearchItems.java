@@ -1,19 +1,34 @@
 package com.froy.magicalitem;
 
+import com.froy.magicalitem.dao.CategoriesDao;
+import com.froy.magicalitem.dao.DaoMaster;
+import com.froy.magicalitem.dao.DaoSession;
+import com.froy.magicalitem.dao.DaoMaster.DevOpenHelper;
+
 import android.app.Activity;
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.support.v4.widget.SimpleCursorAdapter;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemSelectedListener;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
-import android.widget.Toast;
 
 public class SearchItems extends Activity {
+	
+	private SQLiteDatabase db;
 
+	private DaoMaster daoMaster;
+	private DaoSession daoSession;
+	private CategoriesDao categorieseDao;
+	
+
+	private static final String TAG = "ManageCategoriesActivity.java";
+	private String textColumn = CategoriesDao.Properties.CategoryName.columnName;
+	private String orderBy = textColumn + " COLLATE LOCALIZED ASC";
+	
 	Spinner itemCategory_s;
 	Button bCategories;
 
@@ -24,6 +39,21 @@ public class SearchItems extends Activity {
 		setContentView(R.layout.search_items);
 		setVariables();
 		addUiListeners();
+		setSpinner();
+
+	}
+
+	private void setVariables() {
+		// TODO Auto-generated method stub
+		itemCategory_s = (Spinner) findViewById(R.id.spItemCategory);
+		bCategories = (Button) findViewById(R.id.bCategories);
+		DevOpenHelper helper = new DevOpenHelper(
+				this, MyConstants.DATABASE_NAME, null);
+		db = helper.getWritableDatabase();
+		daoMaster = new DaoMaster(db);
+		daoSession = daoMaster.newSession();
+		categorieseDao = daoSession.getCategoriesDao();
+		
 
 	}
 
@@ -42,46 +72,23 @@ public class SearchItems extends Activity {
 
 	}
 
-	private void setVariables() {
-		// TODO Auto-generated method stub
-		itemCategory_s = (Spinner) findViewById(R.id.spItemCategory);
-		bCategories = (Button) findViewById(R.id.bCategories);
-		setSpinner();
-
-	}
-
 	private void setSpinner() {
 		// TODO Auto-generated method stub
-		// Create array adapter using strig array and default spinner layout
-		ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
-				SearchItems.this, R.array.planets_array,
-				android.R.layout.simple_spinner_item);
-		// Specify the layout to use wjen the list of choice appears
-		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-		itemCategory_s.setAdapter(adapter);
-		itemCategory_s.setOnItemSelectedListener(new OnItemSelectedListener() {
-
-			@Override
-			public void onItemSelected(AdapterView<?> arg0, View v, int pos,
-					long id) {
-				// TODO Auto-generated method stub
-				String position = Integer.toString(pos);
-				String selectedItem = itemCategory_s.getSelectedItem()
-						.toString();
-				Toast.makeText(
-						getApplicationContext(),
-						"Item Selected Position: " + position + "\n"
-								+ "Item Selected: " + selectedItem,
-						Toast.LENGTH_LONG).show();
-
-			}
-
-			@Override
-			public void onNothingSelected(AdapterView<?> arg0) {
-				// TODO Auto-generated method stub
-
-			}
-		});
+		Cursor c = db.query(categorieseDao.getTablename(), categorieseDao.getAllColumns(), null, null, null, null, orderBy);
+		startManagingCursor(c);
+		 
+		// create an array to specify which fields we want to display
+		String[] from = new String[]{CategoriesDao.Properties.Id.columnName, CategoriesDao.Properties.CategoryName.columnName};
+		// create an array of the display item we want to bind our data to
+		int[] to = new int[]{android.R.id.text1, android.R.id.text2};
+		// create simple cursor adapter
+		SimpleCursorAdapter adapter =
+		  new SimpleCursorAdapter(this, android.R.layout.simple_spinner_item, c, from, to );
+		adapter.setDropDownViewResource( android.R.layout.simple_spinner_dropdown_item );
+		// get reference to our spinner
+		Spinner s = (Spinner) findViewById( R.id.spItemCategory );
+		s.setAdapter(adapter);
+	
 
 	}
 
