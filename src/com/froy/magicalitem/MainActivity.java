@@ -10,7 +10,7 @@ import android.widget.Button;
 
 public class MainActivity extends Activity {
 
-	Button bContinue;
+	Button bContinue, bExport;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +27,20 @@ public class MainActivity extends Activity {
 
 			}
 		});
+		
+		// Button export intitalize 
+		bExport = (Button) findViewById(R.id.bExport);
+		bExport.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				Intent i = new Intent("com.froy.magicalitems.EXPORT");
+				startActivity(i);
+				
+			}
+		});
+		
 	}
 
 	@Override

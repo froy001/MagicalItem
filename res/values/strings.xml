@@ -19,7 +19,8 @@
     <string name="b_list_categories">List Categories</string>
     <string name="b_manage_categories">Manage Categories</string>
     <string name="b_delete_categories">Delete Categories</string>
-
+    <string name="tv_export_db">Or you can click the \'Export Button\' and export the DB....for fun</string>
+    <string name="b_export_db">ExportDB</string>
     <string-array name="planets_array">
         <item>Mercury</item>
         <item>Venus</item>

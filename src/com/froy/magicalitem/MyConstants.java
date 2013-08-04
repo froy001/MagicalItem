@@ -12,5 +12,6 @@ public class MyConstants extends Application {
 	// TODO Update this to your Android projects base source directory
 	public static final String SCHEMA_OUTPUT_DIR = "../MagicalItem/src-gen";
 	public static final String DATABASE_NAME = "MagicalItemsDb";
+	public static final String MAIN_PACKAGE = "com.froy.magicalitem";
 
 }
