@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/list_item_scroll_bg"
+    android:descendantFocusability="blocksDescendants" >
+
+    <TextView
+        android:id="@+id/tvItemName"
+        style="@style/lv_item_name_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingTop="5dp" />
+
+    <TextView
+        android:id="@+id/tvCL"
+        style="@style/lv_item_secondary_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/tvItemName"
+        android:paddingBottom="5dp" />
+
+</RelativeLayout>

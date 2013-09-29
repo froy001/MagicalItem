@@ -3,9 +3,11 @@
 
     <string name="app_name">Magical Item</string>
     <string name="action_settings">Settings</string>
-    <string name="hello_world">Hello world!</string>
-    <string name="welcome_message">Welcome to the magical item application. On each screen you will have instructions. As long as you follow them you\'\ll be fine.</string>
-    <string name="b_continue">Continue</string>
+    <string name="b_Spell_List">Spell List</string>
+    <string name="b_my_items">My Items</string>
+    <string name="b_item_list">Item List</string>
+    <string name="tv_item_name_list">name</string>
+    <string name="b_magical_item_list">Magical Item List</string>
     <string name="tv_max_item_cost">Max Item market cost(GP)</string>
     <string name="tv_max_creation_time">Max Item Creation Time(Days)</string>
     <string name="tv_max_xp_cost">Max XP Cost</string>
@@ -19,17 +21,15 @@
     <string name="b_list_categories">List Categories</string>
     <string name="b_manage_categories">Manage Categories</string>
     <string name="b_delete_categories">Delete Categories</string>
-
-    <string-array name="planets_array">
-        <item>Mercury</item>
-        <item>Venus</item>
-        <item>Earth</item>
-        <item>Mars</item>
-        <item>Jupiter</item>
-        <item>Saturn</item>
-        <item>Uranus</item>
-        <item>Neptune</item>
-    </string-array>
-  
+    <string name="tv_export_db">Or you can click the \'Export Button\' and export the DB....for fun</string>
+    <string name="b_export_db">ExportDB</string>
+    <string name="b_back">Back</string>
+    <string name="b_add_item_to_inventory">Add Item to \n my Inventory</string>
+    <string name="b_fire_charge">Fire</string>
+    <string name="b_delete">Delete</string>
+    <string name="b_add_another_item">Add Item</string>
+    <string name="tv_add_a_new_item">Add a new Item</string>
+    <string name="my_items_list_image_button_desc">Fire Item</string>
+    
 
 </resources>

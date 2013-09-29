@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:descendantFocusability="blocksDescendants" >
+
+    <TextView
+        android:id="@+id/tvMyItemName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/bFire"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+      
+         />
+
+    <Button
+        android:id="@+id/bDelete"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginRight="48dp"
+        android:text="@string/b_delete"
+       />
+
+    <ImageButton
+        android:id="@+id/bFire"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:src="@drawable/bolt"
+        android:scaleType="fitXY"
+        android:contentDescription="@string/my_items_list_image_button_desc"
+        android:text="@string/b_fire_charge" />
+
+    <TextView
+        android:id="@+id/tvCharges"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="30dp"
+        android:textAlignment="textStart"
+        android:background="#f5f5f5"
+        android:layout_alignBottom="@+id/tvMyItemName"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@id/tvMyItemName" 
+        />
+
+</RelativeLayout>
