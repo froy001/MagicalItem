@@ -150,6 +150,7 @@ public class ItemManager {
 	 * 
 	 * @return Item
 	 */
+	
 	public Item getItem(Long id){
 		Long mId = id;
 		SQLiteDatabase sqliteDB = dbHelper.getReadableDatabase();

@@ -1,8 +1,10 @@
 package com.froy.magicalitem;
 
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.text.Html;
 
-public class Item {
+public class Item implements Parcelable {
 
 	private long id;
 	private String name, category, special_ability, aura, caster_level, price,
@@ -170,6 +172,50 @@ public class Item {
 	public void setFullText(String full_text) {
 		this.full_text = full_text;
 	}
+	
+	
+	// Parcelling part
+	
+	public Item(Parcel in){
+		String[] data = new String[10];
+		
+		in.readStringArray(data);
+		
+		this.id = Long.parseLong(data[0]);
+		this.name = data[1];
+		this.category = data[2];
+		this.special_ability = data[3];
+		this.aura =data[4];
+		this.caster_level=data[5];
+		this.price = data[6];
+		this.prereq=data[7];
+		this.cost=data[8];
+		this.full_text = data[9];
+		
+	}
+	@Override
+	public int describeContents() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	@Override
+	public void writeToParcel(Parcel dest, int flags) {
+		// TODO Auto-generated method stub
+		dest.writeStringArray(new String[]{
+				Long.toString(this.id),this.name , this.category ,this.special_ability,
+				this.aura, this.caster_level,this.price ,this.prereq,
+				this.cost, this.full_text });
+		
+	}
+	public static final Parcelable.Creator<Item> CREATOR= new Parcelable.Creator<Item>(){
+		public Item createFromParcel (Parcel in){
+			return new Item(in);
+		}
+		
+		public Item[] newArray(int size){
+			return new Item[size];
+		}
+	};
 
 
 }
