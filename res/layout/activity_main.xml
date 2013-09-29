@@ -8,41 +8,55 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".MainActivity" >
 
-    <Button
-        android:id="@+id/bContinueToApp"
+    <ImageView
+        android:id="@+id/ivTitle1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:contentDescription="Magical Item title"
+        android:src="@drawable/title_magical_item_manager" />
+
+    <!--
+       <ScrollView   
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/ivTitle1"
         android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:text="@string/b_continue" />
+        android:layout_centerVertical="true" >
+    -->
 
-    <TextView
-        android:id="@+id/tvWelcome"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="23dp"
-        android:text="@string/welcome_message"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textColor="@android:color/primary_text_dark_nodisable"
-        android:textColorHighlight="@android:color/holo_blue_dark" />
+        android:layout_below="@id/ivTitle1"
+        android:gravity="center"
+        android:orientation="vertical" >
 
-    <Button
-        android:id="@+id/bExport"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="56dp"
-        android:text="@string/b_export_db" />
+        <Button
+            android:id="@+id/bItemlist"
+            style="@style/btn_main_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="mainClickMethod"
+            android:text="@string/b_item_list" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/bExport"
-        android:layout_alignLeft="@+id/tvWelcome"
-        android:text="@string/tv_export_db"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        <Button
+            android:id="@+id/bMyItems"
+            style="@style/btn_main_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="mainClickMethod"
+            android:text="@string/b_my_items" />
+
+        <Button
+            android:id="@+id/bSearchItems"
+            style="@style/btn_main_text"
+            android:textColor="@drawable/btn_text_colors"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:enabled="false"
+            android:onClick="mainClickMethod"
+            android:text="@string/b_search_item" />
+    </LinearLayout>
+    <!-- </ScrollView> -->
 
 </RelativeLayout>

@@ -5,19 +5,24 @@
     android:versionName="1.0" >
 
     <uses-sdk
-        android:minSdkVersion="8"
+        android:minSdkVersion="11"
         android:targetSdkVersion="17" />
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.VIBRATE"/>
 
     <application
         android:allowBackup="true"
-        android:icon="@drawable/ic_launcher"
+        android:icon="@drawable/splitbark_wand_detail"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
+        android:theme="@style/MagicalItemManagerTheme" 
+       >
         <activity
-            android:name="com.froy.magicalitem.MainActivity"
-            android:label="@string/app_name" >
+            android:name=".Splash"
+            android:label="@string/app_name" 
+            android:configChanges="orientation"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -25,8 +30,21 @@
             </intent-filter>
         </activity>
         <activity
+            android:name="com.froy.magicalitem.MainActivity"
+            android:label="@string/app_name"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait" >
+            <intent-filter>
+                <action android:name="com.froy.magicalitems.MENU" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
             android:name=".SearchItems"
-            android:label="@string/app_name" >
+            android:label="@string/app_name"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="com.froy.magicalitems.SEARCH" />
 
@@ -35,7 +53,9 @@
         </activity>
         <activity
             android:name=".ManageCategoriesActivity"
-            android:label="@string/app_name" >
+            android:label="@string/app_name" 
+            android:configChanges="orientation"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="com.froy.magicalitems.MANAGECATEGORY" />
 
@@ -43,14 +63,45 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ExportImportDB"
+            android:name=".ItemsListActivity"
+            android:label="@string/app_name" 
+            android:configChanges="orientation"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="com.froy.magicalitems.LISTITEMS" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".MyItems"
             android:label="@string/app_name" >
             <intent-filter>
-                <action android:name="com.froy.magicalitems.EXPORT" />
+                <action android:name="com.froy.magicalitems.MYITEMS" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".ItemDetailActivity"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="com.froy.magicalitems.ITEMDETAIL" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".MyItemsActivity"
+            android:label="@string/app_name" 
+            android:configChanges="orientation"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="com.froy.magicalitems.MYITEMLIST" />
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
     </application>
-
+    
 </manifest>

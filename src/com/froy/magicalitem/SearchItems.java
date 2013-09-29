@@ -1,16 +1,13 @@
 package com.froy.magicalitem;
 
-import com.froy.magicalitem.dao.CategoriesDao;
-import com.froy.magicalitem.dao.DaoMaster;
-import com.froy.magicalitem.dao.DaoSession;
-import com.froy.magicalitem.dao.DaoMaster.DevOpenHelper;
-
+import java.io.IOException;
 import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v4.widget.SimpleCursorAdapter;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
@@ -24,13 +21,7 @@ public class SearchItems extends Activity {
 
 	private SQLiteDatabase db;
 
-	private DaoMaster daoMaster;
-	private DaoSession daoSession;
-	private CategoriesDao categorieseDao;
-
-	private static final String TAG = "ManageCategoriesActivity.java";
-	private String textColumn = CategoriesDao.Properties.CategoryName.columnName;
-	private String orderBy = textColumn + " COLLATE LOCALIZED ASC";
+	private String orderBy = "category ASC";
 
 	Spinner itemCategory_s;
 	Button bCategories;
@@ -39,6 +30,8 @@ public class SearchItems extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
+		// db create
+		createDB();
 		setContentView(R.layout.search_items);
 		setVariables();
 		addUiListeners();
@@ -47,17 +40,32 @@ public class SearchItems extends Activity {
 
 	}
 
+	@Override
+	protected void onResume() {
+		// TODO Auto-generated method stub
+		super.onResume();
+	}
+
+	@Override
+	protected void onPause() {
+		// TODO Auto-generated method stub
+		super.onPause();
+		
+	}
+
+	@Override
+	protected void onStop() {
+		// TODO Auto-generated method stub
+		super.onStop();
+		db.close();
+	}
+
 	private void setVariables() {
 		// TODO Auto-generated method stub
 		itemCategory_s = (Spinner) findViewById(R.id.spItemCategory);
 		bCategories = (Button) findViewById(R.id.bCategories);
-		DevOpenHelper helper = new DevOpenHelper(this,
-				MyConstants.DATABASE_NAME, null);
+		MyDbHelper helper = new MyDbHelper(this);
 		db = helper.getWritableDatabase();
-		daoMaster = new DaoMaster(db);
-		daoSession = daoMaster.newSession();
-		categorieseDao = daoSession.getCategoriesDao();
-
 	}
 
 	private void addUiListeners() {
@@ -77,14 +85,12 @@ public class SearchItems extends Activity {
 
 	private void setSpinner() {
 		// TODO Auto-generated method stub
-		Cursor c = db
-				.query(categorieseDao.getTablename(),
-						categorieseDao.getAllColumns(), null, null, null, null,
-						orderBy);
-		startManagingCursor(c);
 
-		// create an array to specify which fields we want to display
-		String[] from = new String[] { CategoriesDao.Properties.CategoryName.columnName };
+		Cursor c = db.query(MyConstants.CATEGORY_TABLE, null, null, null, null,
+				null, orderBy, null);
+		startManagingCursor(c);
+		String[] from = new String[] {"category"};
+
 		// create an array of the display item we want to bind our data to
 		int[] to = new int[] { android.R.id.text1 };
 		// create simple cursor adapter
@@ -94,6 +100,8 @@ public class SearchItems extends Activity {
 		// get reference to our spinner
 		itemCategory_s = (Spinner) findViewById(R.id.spItemCategory);
 		itemCategory_s.setAdapter(adapter);
+		db.close();
+		
 
 	}
 
@@ -119,6 +127,20 @@ public class SearchItems extends Activity {
 
 			}
 		});
+
+	}
+
+	private void createDB() {
+		// TODO Auto-generated method stub
+		MyDbHelper db = new MyDbHelper(getBaseContext());
+		// creats a db in data/data/packageName/databases from the DB file in
+		// /assets
+		try {
+			db.createDataBase();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 	}
 
