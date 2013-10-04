@@ -22,31 +22,31 @@
     </Spinner>
 
     <TextView
-        android:id="@+id/tvCl"
+        android:id="@+id/tvSearchItems_ItemName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_below="@id/spItemCategory"
+android:layout_below="@+id/spItemCategory"
         android:layout_marginTop="7dp"
-        android:text="@string/tv_max_cl"
+        android:text="@string/tv_item_name"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <EditText
-        android:id="@+id/etMaxCl"
+        android:id="@+id/etSearchItems_ItemName"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="48dp"
         android:layout_alignParentLeft="true"
-        android:layout_below="@id/tvCl"
+       android:layout_below="@+id/tvSearchItems_ItemName"
         android:ems="10"
-        android:inputType="number" >
-    </EditText>
+        android:hint="@string/h_et_item_name"
+        android:inputType="number" />
 
     <TextView
         android:id="@+id/tvCost"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_below="@id/etMaxCl"
+       android:layout_below="@+id/etSearchItems_ItemName"
         android:layout_marginTop="7dp"
         android:text="@string/tv_max_item_cost"
         android:textAppearance="?android:attr/textAppearanceLarge" />
@@ -56,48 +56,31 @@
         android:layout_width="wrap_content"
         android:layout_height="48dp"
         android:layout_alignParentLeft="true"
-        android:layout_below="@id/tvCost"
+    android:layout_below="@+id/tvCost"
         android:ems="10"
         android:hint="@string/h_et_cost"
         android:inputType="number" />
 
     <TextView
-        android:id="@+id/tvCreationTime"
+        android:id="@+id/tvCl"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_below="@id/etCost"
+       android:layout_below="@+id/etCost"
         android:layout_marginTop="7dp"
-        android:text="@string/tv_max_creation_time"
+        android:text="@string/tv_max_cl"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <EditText
-        android:id="@+id/etMaxTime"
+        android:id="@+id/etMaxCl"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/tvCreationTime"
+        android:layout_below="@+id/tvCl"
         android:ems="10"
-        android:inputType="number" />
-
-    <TextView
-        android:id="@+id/tvXpCost"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@id/etMaxTime"
-        android:layout_marginTop="7dp"
-        android:text="@string/tv_max_xp_cost"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
-
-    <EditText
-        android:id="@+id/etMaxXpCost"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/tvXpCost"
-        android:ems="10"
-        android:inputType="number" />
+        android:hint="@string/h_et_max_cl"
+        android:inputType="number" >
+    </EditText>
 
     <Button
         android:id="@+id/bSearchItem"

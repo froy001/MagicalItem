@@ -1,43 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:layout_alignParentLeft="true"
-    android:layout_alignParentTop="true"
-    android:layout_margin="16dp"
-    android:fillViewport="true" 
-    android:background="@color/transparent">
+    android:background="@color/transparent"
+    android:orientation="vertical" >
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/item_details_scroll_bg" 
-        android:orientation="vertical">
+        android:layout_height="0dp"
+        android:layout_marginBottom="10dp"
+        android:layout_weight="0.999"
+        android:background="@drawable/item_details_scroll_bg_old"
+        android:fillViewport="true"
+        android:scrollbars="none" >
 
         <TextView
             android:id="@+id/tvItemDesctiption"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="28dp"
-            android:paddingBottom="20dp"
-            android:paddingLeft="20dp"
-            android:paddingRight="20dp"
-            android:paddingTop="5dp"
-            android:textColor="@color/black" 
-            android:background="@color/transparent"/>
+            android:background="@color/transparent"
+            
+            android:scrollbars="none"
+            android:textColor="@color/black" />
+    </ScrollView>
 
+    <Button
+        android:id="@+id/bAddItemToInventory"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="5dp"
+        android:layout_weight="0.001"
+        android:background="@drawable/btn_add_item"
+        android:text="@string/b_add_item_to_inventory"
+        android:textColor="@color/base_yellow"
+        android:textSize="40sp" />
 
-            <Button
-                android:id="@+id/bAddItemToInventory"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="18dp"
-                android:background="@drawable/btn_add_item"
-                android:text="@string/b_add_item_to_inventory"
-                android:layout_gravity="center"
-                android:textColor="@color/base_yellow"
-                android:textSize="48sp" />
-
-    </LinearLayout>
-
-</ScrollView>
+</LinearLayout>

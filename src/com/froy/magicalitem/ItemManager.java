@@ -146,6 +146,43 @@ public class ItemManager {
 	}
 	
 	/**
+	 * Get search result Items
+	 * 
+	 * @return List of Items searched for
+	 */
+	public ArrayList<Item> getSearchItems() {
+		ArrayList<Item> items = new ArrayList<Item>();
+
+		SQLiteDatabase sqliteDB = dbHelper.getReadableDatabase();
+		Log.d(TAG, "loading cursor");
+		Cursor crsr = sqliteDB.rawQuery(SELECT_ITEM, null);
+		Log.d(TAG, "Loaded cursor");
+
+		crsr.moveToFirst();
+		while (!crsr.isAfterLast()) {
+			// Log.d(TAG, "start for loop");
+			items.add(new Item(crsr.getLong(crsr.getColumnIndex(ITEM_ID)), crsr
+					.getString(crsr.getColumnIndex(ITEM_NAME)), crsr
+					.getString(crsr.getColumnIndex(ITEM_CATEGORY)), crsr
+					.getString(crsr.getColumnIndex(ITEM_SPECIAL_ABILITY)), crsr
+					.getString(crsr.getColumnIndex(ITEM_AURA)), crsr
+					.getString(crsr.getColumnIndex(ITEM_CL)), crsr
+					.getString(crsr.getColumnIndex(ITEM_PRICE)), crsr
+					.getString(crsr.getColumnIndex(ITEM_PREQ)), crsr
+					.getString(crsr.getColumnIndex(ITEM_COST)), crsr
+					.getString(crsr.getColumnIndex(ITEM_FULL_TEXT))));
+
+			crsr.moveToNext();
+			// Log.d(TAG, "crsr moved next");
+
+		}
+		Log.d(TAG, "ended for loop");
+		dbHelper.close();
+		crsr.close();
+		return items;
+	}
+	
+	/**
 	 * Get Item
 	 * 
 	 * @return Item
