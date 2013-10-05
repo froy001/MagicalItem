@@ -2,7 +2,6 @@ package com.froy.magicalitem;
 
 import java.util.List;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -10,23 +9,21 @@ import android.content.Intent;
 import android.graphics.Typeface;
 import android.media.MediaPlayer;
 import android.os.Vibrator;
-import android.sax.StartElementListener;
 import android.text.InputType;
-import android.text.style.UpdateLayout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
-import android.widget.ListAdapter;
-import android.widget.ListView;
 import android.widget.TextView;
+
+import com.froy.magicalitem.R.color;
+import com.qustom.dialog.FroyQustomDialogBuilder;
+import com.qustom.dialog.QustomDialogBuilder;
 
 public class MyItemAdapter extends BaseAdapter implements OnClickListener {
 
@@ -69,16 +66,19 @@ public class MyItemAdapter extends BaseAdapter implements OnClickListener {
 
 		if (convertView == null) {
 
-			convertView = mInflater.inflate(R.layout.my_items_list_layout_linear, null);
+			convertView = mInflater.inflate(
+					R.layout.my_items_list_layout_linear, null);
 
 			holder = new ViewHolder();
 			holder.position = position;
 			holder.name = (TextView) convertView
 					.findViewById(R.id.tvMyItemName);
-			holder.name.setTypeface(Typeface.createFromAsset(mContext.getAssets(), "fonts/dungeon.ttf"));
+			holder.name.setTypeface(Typeface.createFromAsset(
+					mContext.getAssets(), "fonts/dungeon.ttf"));
 			holder.charges = (TextView) convertView
 					.findViewById(R.id.tvCharges);
-			holder.charges.setTypeface(Typeface.createFromAsset(mContext.getAssets(), "fonts/dungeon.ttf"));
+			holder.charges.setTypeface(Typeface.createFromAsset(
+					mContext.getAssets(), "fonts/dungeon.ttf"));
 			holder.bFire = (Button) convertView.findViewById(R.id.bFire);
 			holder.bFire.setOnClickListener(MyItemAdapter.this);
 			holder.bFire.setTag(position);
@@ -98,9 +98,11 @@ public class MyItemAdapter extends BaseAdapter implements OnClickListener {
 		holder.bFire.setTag(position);
 		MyItem row = MyItemAdapter.rows.get(position);
 		holder.name.setText(row.getName());
-		holder.name.setTypeface(Typeface.createFromAsset(mContext.getAssets(), "fonts/dungeon.ttf"));
-		holder.charges.setTypeface(Typeface.createFromAsset(mContext.getAssets(), "fonts/dungeon.ttf"));
-		holder.charges.setText(CHARGES_MESSAGE+row.getItemCharges());
+		holder.name.setTypeface(Typeface.createFromAsset(mContext.getAssets(),
+				"fonts/dungeon.ttf"));
+		holder.charges.setTypeface(Typeface.createFromAsset(
+				mContext.getAssets(), "fonts/dungeon.ttf"));
+		holder.charges.setText(CHARGES_MESSAGE + row.getItemCharges());
 		holder.bDelete = (Button) convertView.findViewById(R.id.bDelete);
 		holder.bDelete.setOnClickListener(MyItemAdapter.this);
 		holder.bDelete.setTag(position);
@@ -134,8 +136,8 @@ public class MyItemAdapter extends BaseAdapter implements OnClickListener {
 
 	static class ViewHolder {
 		TextView id, itemId, name, category, charges, cost;
-		Button bDelete,bFire;
-		
+		Button bDelete, bFire;
+
 		int position;
 	}
 
@@ -145,7 +147,8 @@ public class MyItemAdapter extends BaseAdapter implements OnClickListener {
 		final int position = (Integer) v.getTag();
 		final MyItem mItem = rows.get(position);
 		final MyItemManager mngr = new MyItemManager(MyItemAdapter.mContext);
-		Vibrator vibe = (Vibrator) mContext.getSystemService(Context.VIBRATOR_SERVICE);
+		Vibrator vibe = (Vibrator) mContext
+				.getSystemService(Context.VIBRATOR_SERVICE);
 		MediaPlayer mp = MediaPlayer.create(this.mContext, R.raw.explosion_2);
 		Log.d("MyItemAdapter.onClick", "Item id: " + mItem.getId()
 				+ "\n Item Name :" + mItem.getName() + "mItem charges: "
@@ -163,9 +166,11 @@ public class MyItemAdapter extends BaseAdapter implements OnClickListener {
 				refresh(rows);
 			} else if (mItem.getItemCharges() <= 0) {
 				Log.d("MyItemAdapter", "Item Charges <=0");
-				AlertDialog.Builder alert = new AlertDialog.Builder(mContext);
+				QustomDialogBuilder alert = new QustomDialogBuilder(mContext);
 				alert.setTitle("No More Charges!!");
 				alert.setMessage("Do you want to reload the item?");
+				alert.setTitleColor("#ff0101");
+				alert.setDividerColor("#ff0101");
 				alert.setPositiveButton("Yes",
 						new DialogInterface.OnClickListener() {
 							public void onClick(DialogInterface dialog,
@@ -192,10 +197,12 @@ public class MyItemAdapter extends BaseAdapter implements OnClickListener {
 
 		case R.id.bDelete:
 			Log.d("MyItemAdapter.onClick", "bDelete Clicked");
-			AlertDialog.Builder alert = new AlertDialog.Builder(
+			QustomDialogBuilder alert = new QustomDialogBuilder(
 					MyItemAdapter.mContext);
 			alert.setTitle("Confirm Item Deletion");
 			alert.setMessage("Are you sure you want to delete item ?");
+			alert.setTitleColor("#ff0101");
+			alert.setDividerColor("#ff0101");
 			alert.setPositiveButton("Yes",
 					new DialogInterface.OnClickListener() {
 						public void onClick(DialogInterface dialog,
@@ -228,19 +235,21 @@ public class MyItemAdapter extends BaseAdapter implements OnClickListener {
 
 	public static boolean enterCharges(final Context context, final MyItem item) {
 		// TODO Auto-generated method stub
-		final AlertDialog.Builder alert = new AlertDialog.Builder(context);
+		QustomDialogBuilder alert = new QustomDialogBuilder(context);
 		final MyItemManager mItemManager = new MyItemManager(context);
 		final MyItem mItem = item;
 		boolean result = false;
 
-		alert.setTitle("Add Item Dialog");
-		alert.setMessage("How many charges does your item has?");
+		alert.setTitle("Test this title");
+		alert.setMessage(R.string.add_item_dialog_message);
+		alert.setTitleColor("#ff0101");
+		alert.setDividerColor("#ff0101");
 
 		// Set an EditText view to get user input
 		final EditText input = new EditText(context);
 		input.setInputType(InputType.TYPE_CLASS_NUMBER);
-
-		alert.setView(input);
+		alert.addViewToLinearLayout(input, R.id.contentPanel);
+		
 		alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
 			public void onClick(DialogInterface dialog, int whichButton) {
 				// make sure that the input is not empty
@@ -268,10 +277,10 @@ public class MyItemAdapter extends BaseAdapter implements OnClickListener {
 				new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int whichButton) {
 						// Canceled.
-
 					}
 				});
 
+		//open the numbers input UI so that the input type is clearer
 		final AlertDialog dialog = alert.create();
 		input.setOnFocusChangeListener(new View.OnFocusChangeListener() {
 
@@ -283,7 +292,6 @@ public class MyItemAdapter extends BaseAdapter implements OnClickListener {
 							.setSoftInputMode(
 									WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
 				}
-
 			}
 		});
 
