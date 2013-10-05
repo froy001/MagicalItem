@@ -7,8 +7,12 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class DndDB extends SQLiteOpenHelper {
 	
+	
+	
 	private SQLiteDatabase mDb;
 	private Context mContext;
+	
+
 
 	public DndDB(Context context) {
 		super(context, MyConstants.DB_NAME, null, 1);

@@ -33,8 +33,10 @@
     <string name="tv_add_a_new_item">Add a new Item</string>
     <string name="my_items_list_image_button_desc">Fire Item</string>
     <string name="iv_desc_title1">Magical Item title</string>
+    <string name="enter_item_name">Enter Item Name</string>
     <string name="add_item_dialog_title">Add Item Dialog</string>
     <string name="add_item_dialog_message">How many charges does your item has?</string>
+    <string name="search_button_desc">Search button in searchitem activity</string>
     
 
 </resources>
