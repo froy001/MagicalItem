@@ -1,12 +1,15 @@
 package com.froy.magicalitem;
 
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.text.Html;
 
-public class Item {
+public class Item  {
 
 	private long id;
 	private String name, category, special_ability, aura, caster_level, price,
 			prereq, cost, full_text;
+
 /*
  * Constructors
  */
@@ -170,6 +173,9 @@ public class Item {
 	public void setFullText(String full_text) {
 		this.full_text = full_text;
 	}
+	
+
+	
 
 
 }

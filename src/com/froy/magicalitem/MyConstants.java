@@ -14,6 +14,16 @@ public class MyConstants extends Application {
 	public static final String CATEGORY_TABLE= "CATEGORIES";
 	public static final String ITEM_TABLE= "item";
 	public static final String MYITEM_TABLE= "my_items";
+	public  static final String ITEM_ID = "_id";
+	public static final String ITEM_NAME = "name";
+	public static final String ITEM_CATEGORY = "category";
+	public static final String ITEM_SPECIAL_ABILITY = "special_ability";
+	public static final String ITEM_AURA = "aura";
+	public static final String ITEM_CL = "caster_level";
+	public static final String ITEM_PRICE = "price";
+	public static final String ITEM_PREQ = "prereq";
+	public static final String ITEM_COST = "cost";
+	public static final String ITEM_FULL_TEXT = "full_text";
 	
 
 }

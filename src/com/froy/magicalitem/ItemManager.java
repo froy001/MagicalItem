@@ -2,6 +2,8 @@ package com.froy.magicalitem;
 
 import java.util.ArrayList;
 
+import android.app.Activity;
+import android.app.Application;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -11,41 +13,46 @@ import android.text.Html;
 import android.util.Log;
 
 public class ItemManager {
-	private DndDB dbHelper;
+//	private  DndDB dbHelper;
 
-	private static final String ITEM_TABLE = MyConstants.ITEM_TABLE;
-	private static final String ITEM_ID = "_id";
-	private static final String ITEM_NAME = "name";
-	private static final String ITEM_CATEGORY = "category";
-	private static final String ITEM_SPECIAL_ABILITY = "special_ability";
-	private static final String ITEM_AURA = "aura";
-	private static final String ITEM_CL = "caster_level";
-	private static final String ITEM_PRICE = "price";
-	private static final String ITEM_PREQ = "prereq";
-	private static final String ITEM_COST = "cost";
-	private static final String ITEM_FULL_TEXT = "full_text";
+	private final String ITEM_TABLE = MyConstants.ITEM_TABLE;
+	private final String ITEM_ID = "_id";
+	private final String ITEM_NAME = "name";
+	private final String ITEM_CATEGORY = "category";
+	private final String ITEM_SPECIAL_ABILITY = "special_ability";
+	private final String ITEM_AURA = "aura";
+	private final String ITEM_CL = "caster_level";
+	private final String ITEM_PRICE = "price";
+	private final String ITEM_PREQ = "prereq";
+	private final String ITEM_COST = "cost";
+	private final String ITEM_FULL_TEXT = "full_text";
 
-	private static final String SELECT_ITEM = "SELECT " + ITEM_ID + ", "
+	private final String SELECT_ITEM = "SELECT " + ITEM_ID + ", "
 			+ ITEM_NAME + ", " + ITEM_CATEGORY + ", " + ITEM_SPECIAL_ABILITY
 			+ ", " + ITEM_AURA + ", " + ITEM_CL + ", " + ITEM_PRICE + ", "
 			+ ITEM_PREQ + ", " + ITEM_COST + ", " + ITEM_FULL_TEXT + " FROM "
 			+ ITEM_TABLE + " ORDER BY " + ITEM_NAME + " ;";
-	private static final String SELECT_ITEM_BY_ID_1 = "SELECT " + ITEM_ID + ", "
+	private final String SELECT_ITEM_BY_ID_1 = "SELECT " + ITEM_ID + ", "
 			+ ITEM_NAME + ", " + ITEM_CATEGORY + ", " + ITEM_SPECIAL_ABILITY
 			+ ", " + ITEM_AURA + ", " + ITEM_CL + ", " + ITEM_PRICE + ", "
 			+ ITEM_PREQ + ", " + ITEM_COST + ", " + ITEM_FULL_TEXT + " FROM "
 			+ ITEM_TABLE +" WHERE _id = ";
-	private static final String SELECT_ITEM_BY_ID_2 =" ORDER BY " + ITEM_NAME + " ;";
+	private  final String SELECT_ITEM_BY_ID_2 =" ORDER BY " + ITEM_NAME + " ;";
 
-	private static final String TAG = "ItemManager.java";
+	static final String TAG = "ItemManager.java";
+	private Context mContext;
+	static Context sContext;
+	
 
 	public ItemManager(Context context) {
-		dbHelper = new DndDB(context);
-		dbHelper.close();
+		
+		
+		this.mContext=context;
+		sContext=context;
 	}
 
-	public boolean close() {
-		dbHelper.close();
+	public synchronized boolean close() {
+		this.close();
 		return true;
 
 	}
@@ -75,9 +82,10 @@ public class ItemManager {
 	 * @return success or fail name, category, special_ability, aura,
 	 *         caster_level, price, prereq, cost
 	 */
-	public boolean insert(String itemName, String category,
+	public synchronized boolean insert(String itemName, String category,
 			String special_ability, String aura, String caster_level,
 			String price, String prereq, String cost, String full_text) {
+		DndDB dbHelper=new DndDB(mContext);
 
 		try {
 
@@ -103,7 +111,7 @@ public class ItemManager {
 
 			return false;
 		}
-
+		dbHelper.close();
 		return true;
 
 	}
@@ -113,8 +121,9 @@ public class ItemManager {
 	 * 
 	 * @return List of Items in complete item list
 	 */
-	public ArrayList<Item> getItems() {
+	public synchronized ArrayList<Item> getItems() {
 		ArrayList<Item> items = new ArrayList<Item>();
+		DndDB dbHelper=new DndDB(mContext);
 
 		SQLiteDatabase sqliteDB = dbHelper.getReadableDatabase();
 		Log.d(TAG, "loading cursor");
@@ -140,6 +149,7 @@ public class ItemManager {
 
 		}
 		Log.d(TAG, "ended for loop");
+		sqliteDB.close();
 		dbHelper.close();
 		crsr.close();
 		return items;
@@ -150,27 +160,41 @@ public class ItemManager {
 	 * 
 	 * @return List of Items searched for
 	 */
-	public ArrayList<Item> getSearchItems() {
-		ArrayList<Item> items = new ArrayList<Item>();
+	public static synchronized ArrayList<Item> searchItem(Context context, String name,
+			String category){
+		DndDB dbHelper=new DndDB (context);
+		SQLiteDatabase sqliteDB =dbHelper.getWritableDatabase();
+		ArrayList<Item> items=new ArrayList<Item>();
+		String mName = "";
+		String mCategory="%";
+		if(name!=null) mName=name;
+		if(!category.equals("All")) mCategory=category;
+		
+		String searchQuary = "SELECT " + MyConstants.ITEM_ID + ", "
+				+ MyConstants.ITEM_NAME + ", " + MyConstants.ITEM_CATEGORY + ", " + MyConstants.ITEM_SPECIAL_ABILITY
+				+ ", " + MyConstants.ITEM_AURA + ", " + MyConstants.ITEM_CL + ", " + MyConstants.ITEM_PRICE + ", "
+				+ MyConstants.ITEM_PREQ + ", " + MyConstants.ITEM_COST + ", " + MyConstants.ITEM_FULL_TEXT + " FROM "
+				+ MyConstants.ITEM_TABLE +" WHERE "+MyConstants.ITEM_NAME+" LIKE "+"'%"+mName+"%'"+" AND "+MyConstants.ITEM_CATEGORY+" LIKE '%"+mCategory+"%'"+" ORDER BY " + MyConstants.ITEM_NAME + " ;";
+		System.out.println(searchQuary);
 
-		SQLiteDatabase sqliteDB = dbHelper.getReadableDatabase();
+		
 		Log.d(TAG, "loading cursor");
-		Cursor crsr = sqliteDB.rawQuery(SELECT_ITEM, null);
+		Cursor crsr = sqliteDB.rawQuery(searchQuary, null);
 		Log.d(TAG, "Loaded cursor");
 
 		crsr.moveToFirst();
 		while (!crsr.isAfterLast()) {
 			// Log.d(TAG, "start for loop");
-			items.add(new Item(crsr.getLong(crsr.getColumnIndex(ITEM_ID)), crsr
-					.getString(crsr.getColumnIndex(ITEM_NAME)), crsr
-					.getString(crsr.getColumnIndex(ITEM_CATEGORY)), crsr
-					.getString(crsr.getColumnIndex(ITEM_SPECIAL_ABILITY)), crsr
-					.getString(crsr.getColumnIndex(ITEM_AURA)), crsr
-					.getString(crsr.getColumnIndex(ITEM_CL)), crsr
-					.getString(crsr.getColumnIndex(ITEM_PRICE)), crsr
-					.getString(crsr.getColumnIndex(ITEM_PREQ)), crsr
-					.getString(crsr.getColumnIndex(ITEM_COST)), crsr
-					.getString(crsr.getColumnIndex(ITEM_FULL_TEXT))));
+			items.add(new Item(crsr.getLong(crsr.getColumnIndex(MyConstants.ITEM_ID)), crsr
+					.getString(crsr.getColumnIndex(MyConstants.ITEM_NAME)), crsr
+					.getString(crsr.getColumnIndex(MyConstants.ITEM_CATEGORY)), crsr
+					.getString(crsr.getColumnIndex(MyConstants.ITEM_SPECIAL_ABILITY)), crsr
+					.getString(crsr.getColumnIndex(MyConstants.ITEM_AURA)), crsr
+					.getString(crsr.getColumnIndex(MyConstants.ITEM_CL)), crsr
+					.getString(crsr.getColumnIndex(MyConstants.ITEM_PRICE)), crsr
+					.getString(crsr.getColumnIndex(MyConstants.ITEM_PREQ)), crsr
+					.getString(crsr.getColumnIndex(MyConstants.ITEM_COST)), crsr
+					.getString(crsr.getColumnIndex(MyConstants.ITEM_FULL_TEXT))));
 
 			crsr.moveToNext();
 			// Log.d(TAG, "crsr moved next");
@@ -189,6 +213,7 @@ public class ItemManager {
 	 */
 	public Item getItem(Long id){
 		Long mId = id;
+		DndDB dbHelper=new DndDB(mContext);
 		SQLiteDatabase sqliteDB = dbHelper.getReadableDatabase();
 		Cursor crsr = sqliteDB.rawQuery(SELECT_ITEM_BY_ID_1+mId+SELECT_ITEM_BY_ID_2, null);
 		Log.i("crsr"," The cursor has "+ crsr.getCount()+ " rows");
@@ -218,4 +243,6 @@ public class ItemManager {
 	public String stripHtml(String html) {
 		return Html.fromHtml(html).toString();
 	}
+
+
 }
