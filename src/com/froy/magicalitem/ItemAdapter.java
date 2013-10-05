@@ -1,5 +1,6 @@
 package com.froy.magicalitem;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import android.content.Context;
@@ -18,13 +19,13 @@ import android.widget.Toast;
 
 public class ItemAdapter extends BaseAdapter {
 
-	private final List<Item> rows;
+	private final ArrayList<Item> rows;
 	private final Context mContext;
 	
 	private final String TAG = "com.froy.magicalitem.ItemAdapter";
 
 	public ItemAdapter(final Context context, final int itemResId,
-			final List<Item> items) {
+			final ArrayList<Item> items) {
 
 		this.rows = items;
 		this.mContext = context;

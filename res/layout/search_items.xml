@@ -26,50 +26,70 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-android:layout_below="@+id/spItemCategory"
+        android:layout_below="@+id/spItemCategory"
         android:layout_marginTop="7dp"
         android:text="@string/tv_item_name"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
-    <EditText
-        android:id="@+id/etSearchItems_ItemName"
-        android:layout_width="wrap_content"
-        android:layout_height="48dp"
+    <LinearLayout
+        android:id="@+id/searchNameLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-       android:layout_below="@+id/tvSearchItems_ItemName"
-        android:ems="10"
-        android:hint="@string/h_et_item_name"
-        android:inputType="number" />
+        android:layout_below="@+id/tvSearchItems_ItemName"
+        android:orientation="horizontal" >
+
+        <EditText
+            android:id="@+id/etSearchItems_ItemName"
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:ems="10"
+            android:hint="@string/enter_item_name"
+            
+            android:inputType="text" />
+
+        <ImageButton
+            android:id="@+id/bSearchItem"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="15dp"
+            android:contentDescription="@string/search_button_desc"
+            android:src="@android:drawable/ic_menu_search"
+           />
+    </LinearLayout>
 
     <TextView
         android:id="@+id/tvCost"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-       android:layout_below="@+id/etSearchItems_ItemName"
+        android:layout_below="@id/searchNameLayout"
         android:layout_marginTop="7dp"
         android:text="@string/tv_max_item_cost"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:visibility="gone" />
 
     <EditText
         android:id="@+id/etCost"
         android:layout_width="wrap_content"
         android:layout_height="48dp"
         android:layout_alignParentLeft="true"
-    android:layout_below="@+id/tvCost"
+        android:layout_below="@+id/tvCost"
         android:ems="10"
         android:hint="@string/h_et_cost"
-        android:inputType="number" />
+        android:inputType="number"
+        android:visibility="gone" />
 
     <TextView
         android:id="@+id/tvCl"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-       android:layout_below="@+id/etCost"
+        android:layout_below="@+id/etCost"
         android:layout_marginTop="7dp"
         android:text="@string/tv_max_cl"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:visibility="gone" />
 
     <EditText
         android:id="@+id/etMaxCl"
@@ -79,24 +99,16 @@ android:layout_below="@+id/spItemCategory"
         android:layout_below="@+id/tvCl"
         android:ems="10"
         android:hint="@string/h_et_max_cl"
-        android:inputType="number" >
+        android:inputType="number"
+        android:visibility="gone" >
     </EditText>
-
-    <Button
-        android:id="@+id/bSearchItem"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_marginBottom="15dp"
-        android:text="@string/b_search_item" />
 
     <Button
         android:id="@+id/bCategories"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/bSearchItem"
-        android:layout_toRightOf="@+id/bSearchItem"
-        android:text="@string/b_manage_categories" />
+       
+        android:text="@string/b_manage_categories"
+        android:visibility="gone" />
 
 </RelativeLayout>
