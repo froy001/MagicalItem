@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.froy.magicalitem"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <uses-sdk
+        android:minSdkVersion="11"
+        android:targetSdkVersion="17" />
+
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/splitbark_wand_detail"
+        android:label="@string/app_name"
+        android:theme="@style/MagicalItemManagerTheme" >
+        <activity
+            android:name=".Splash"
+            android:configChanges="orientation"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.froy.magicalitem.MainActivity"
+            android:configChanges="orientation"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" >
+            <intent-filter>
+                <action android:name="com.froy.magicalitems.MENU" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".SearchItems"
+            android:configChanges="orientation"
+            android:label="@string/app_name"
+            android:parentActivityName="com.froy.magicalitem.MainActivity"
+            android:screenOrientation="portrait" >
+
+            <!-- Parent activity meta-data to support 4.0 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.froy.magicalitem.MainActivity" />
+
+            <intent-filter>
+                <action android:name="com.froy.magicalitems.SEARCH" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".ManageCategoriesActivity"
+            android:configChanges="orientation"
+            android:label="@string/app_name"
+            android:parentActivityName="com.froy.magicalitem.MainActivity"
+            android:screenOrientation="portrait" >
+
+            <!-- Parent activity meta-data to support 4.0 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.froy.magicalitem.MainActivity" />
+
+            <intent-filter>
+                <action android:name="com.froy.magicalitems.MANAGECATEGORY" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".ItemsListActivity"
+            android:configChanges="orientation"
+            android:label="@string/app_name"
+            android:parentActivityName="com.froy.magicalitem.MainActivity"
+            android:screenOrientation="portrait" >
+
+            <!-- Parent activity meta-data to support 4.0 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.froy.magicalitem.MainActivity" />
+
+            <intent-filter>
+                <action android:name="com.froy.magicalitems.LISTITEMS" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".MyItems"
+            android:configChanges="orientation"
+            android:label="@string/app_name"
+            android:parentActivityName="com.froy.magicalitem.MainActivity"
+            android:screenOrientation="portrait" >
+
+            <!-- Parent activity meta-data to support 4.0 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.froy.magicalitem.MainActivity" />
+
+            <intent-filter>
+                <action android:name="com.froy.magicalitems.MYITEMS" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".ItemDetailActivity"
+            android:configChanges="orientation"
+            android:label="@string/app_name"
+            android:parentActivityName="com.froy.magicalitem.MainActivity"
+            android:screenOrientation="portrait" >
+
+            <!-- Parent activity meta-data to support 4.0 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.froy.magicalitem.MainActivity" />
+
+            <intent-filter>
+                <action android:name="com.froy.magicalitems.ITEMDETAIL" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".MyItemsActivity"
+            android:configChanges="orientation"
+            android:label="@string/app_name"
+            android:parentActivityName="com.froy.magicalitem.MainActivity"
+            android:screenOrientation="portrait" >
+
+            <!-- Parent activity meta-data to support 4.0 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.froy.magicalitem.MainActivity" />
+
+            <intent-filter>
+                <action android:name="com.froy.magicalitems.MYITEMLIST" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".ItemsSearchResultActivity"
+            android:configChanges="orientation"
+            android:label="@string/app_name"
+            android:parentActivityName="com.froy.magicalitem.MainActivity"
+            android:screenOrientation="portrait" >
+
+            <!-- Parent activity meta-data to support 4.0 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.froy.magicalitem.MainActivity" />
+
+            <intent-filter>
+                <action android:name="com.froy.magicalitems.SEARCHLIST" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>
