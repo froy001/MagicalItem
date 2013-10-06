@@ -9,6 +9,7 @@ import android.graphics.Typeface;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
@@ -27,7 +28,10 @@ public class MyItemsActivity extends Activity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		
 		setContentView(R.layout.my_items_layout);
+		getActionBar().setDisplayHomeAsUpEnabled(true);
+		
 		ListView mListView = (ListView) findViewById(R.id.lvMyItems);
 		Button bAddItem = (Button) findViewById(R.id.myItemsLayout_bAddItems);
 		TextView tvAddItem=(TextView) findViewById(R.id.myItemsLayout_tvAddItem);
@@ -58,24 +62,18 @@ public class MyItemsActivity extends Activity {
 		} catch (Exception ex) {
 			Log.e(ex.toString(), ex.toString());
 		}
-
-//		mListView.setOnItemClickListener(new OnItemClickListener() {
-//
-//			@Override
-//			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
-//					long arg3) {
-//				// TODO Auto-generated method stub
-//				MyItem myItem = myItems.get(arg2);
-//				ItemManager mgr = new ItemManager(MyItemsActivity.this);
-//				Item item = mgr.getItem(myItem.getItemId());
-//				Intent mIntent = new Intent("com.froy.magicalitems.ITEMDETAIL");
-//				mIntent.putExtra("ITEM_ID", item.getId());
-//				mIntent.putExtra("ITEM_DETAILS", item.getFullText());
-//				startActivity(mIntent);
-//
-//			}
-//		});
-
 	}
-
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		// TODO Auto-generated method stub
+		switch(item.getItemId()){
+		case android.R.id.home:
+			Intent homeIntent = new Intent(this, MainActivity.class);
+			homeIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+			startActivity(homeIntent);
+		}
+			
+			
+		return (super.onOptionsItemSelected(item));
+	}
 }
