@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <EditText
+        android:id="@+id/etCategoryName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="text"
+        android:hint="@string/h_enter_category_name"
+        android:ems="12" >
+
+        <requestFocus />
+    </EditText>
+
+    <Button
+        android:id="@+id/bAddCategory"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/b_add_category"
+        android:layout_below="@id/etCategoryName" />
+
+    <Button
+        android:id="@+id/bDeleteCategory"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/bAddCategory"
+        android:layout_below="@id/etCategoryName"
+        android:text="@string/b_delete_categories" />
+
+    <Button
+        android:id="@+id/bListCategories"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/b_list_categories"
+        android:layout_below="@id/bAddCategory" />
+
+    <ListView
+        android:id="@+id/lvCategoryList"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/bListCategories" >
+    </ListView>
+    
+</RelativeLayout>

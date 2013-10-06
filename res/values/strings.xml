@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Magical Item</string>
+    <string name="action_settings">Settings</string>
+    <string name="b_Spell_List">Spell List</string>
+    <string name="b_my_items">My Items</string>
+    <string name="b_item_list">Item List</string>
+    <string name="tv_item_name_list">name</string>
+    <string name="b_magical_item_list">Magical Item List</string>
+    <string name="tv_max_item_cost">Max Item market cost(GP)</string>
+    <string name="tv_item_name">Item Name</string>
+    <string name="tv_max_xp_cost">Max XP Cost</string>
+    <string name="b_search_item">Search Item</string>
+    <string name="tv_max_cl">Max Caster Level</string>
+    <string name="tv_item_category">Item Category</string>
+    <string name="h_et_cost">Enter Max Item Cost</string>
+    <string name="h_et_item_name">Enter name keywords</string>
+    <string name="h_et_max_cl">Enter max CL</string>
+    <string name="sp_item_cat_prompt">Select Item</string>
+    <string name="h_enter_category_name">Enter Magical Item Category</string>
+    <string name="b_add_category">Add Category</string>
+    <string name="b_list_categories">List Categories</string>
+    <string name="b_manage_categories">Manage Categories</string>
+    <string name="b_delete_categories">Delete Categories</string>
+    <string name="tv_export_db">Or you can click the \'Export Button\' and export the DB....for fun</string>
+    <string name="b_export_db">ExportDB</string>
+    <string name="b_back">Back</string>
+    <string name="b_add_item_to_inventory">Add Item to my Inventory</string>
+    <string name="b_fire_charge">Fire</string>
+    <string name="b_delete">Delete</string>
+    <string name="b_add_another_item">Add Item</string>
+    <string name="tv_add_a_new_item">Add a new Item</string>
+    <string name="my_items_list_image_button_desc">Fire Item</string>
+    <string name="iv_desc_title1">Magical Item title</string>
+    <string name="enter_item_name">Enter Item Name</string>
+    <string name="add_item_dialog_title">Add Item Dialog</string>
+    <string name="add_item_dialog_message">How many charges does your item has?</string>
+    <string name="search_button_desc">Search button in searchitem activity</string>
+    
+
+</resources>
