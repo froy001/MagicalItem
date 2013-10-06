@@ -160,7 +160,7 @@ public class ItemManager {
 	 * 
 	 * @return List of Items searched for
 	 */
-	public static synchronized ArrayList<Item> searchItem(Context context, String name,
+	public synchronized ArrayList<Item> searchItem(Context context, String name,
 			String category){
 		DndDB dbHelper=new DndDB (context);
 		SQLiteDatabase sqliteDB =dbHelper.getWritableDatabase();
