@@ -46,6 +46,7 @@ public class ItemDetailActivity extends Activity {
 		mItem = new MyItem((Long) null, itemId, -1, null, null);
 		bAddItem = (Button) findViewById(R.id.bAddItemToInventory);
 		bAddItem.setTypeface(Typeface.createFromAsset(getAssets(), "fonts/dungeon.ttf"));
+		Log.d(ItemDetailActivity.class.getSimpleName(),"mItem.getItemId=" + mItem.getItemId());
 		bAddItem.setOnClickListener(new OnClickListener() {
 
 			@Override

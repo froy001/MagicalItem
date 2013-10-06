@@ -239,7 +239,12 @@ public class MyItemAdapter extends BaseAdapter implements OnClickListener {
 		final MyItemManager mItemManager = new MyItemManager(context);
 		final MyItem mItem = item;
 		boolean result = false;
-
+		Log.d(MyItemAdapter.class.getSimpleName(),"mItem.getItemId() = "+mItem.getItemId());
+//		ItemManager im = new ItemManager(context);
+//		Item fullItem= new Item(mItem.getItemId());
+//		Log.d(MyItemAdapter.class.getSimpleName(),"mItem.fullItemId() = "+fullItem.getId());
+//		fullItem=im.getItem(mItem.getItemId());
+//		Log.i(MyItemAdapter.class.getSimpleName(), "fullItem is: "+ fullItem.getName()+" and its id is: " + fullItem.getId());
 		alert.setTitle("Test this title");
 		alert.setMessage(R.string.add_item_dialog_message);
 		alert.setTitleColor("#ff0101");
