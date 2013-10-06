@@ -1,21 +1,13 @@
 package com.froy.magicalitem;
 
 import java.util.ArrayList;
-import java.util.List;
-
 import android.content.Context;
 import android.graphics.Typeface;
-import android.os.Message;
-import android.support.v4.widget.SimpleCursorAdapter;
-import android.text.Html;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class ItemAdapter extends BaseAdapter {
 

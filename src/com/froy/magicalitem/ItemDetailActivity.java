@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.text.Html;
 import android.text.InputType;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.WindowManager;
@@ -30,7 +31,10 @@ public class ItemDetailActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
+		
 		setContentView(R.layout.item_details);
+		getActionBar().setDisplayHomeAsUpEnabled(true);
+		
 		Bundle extras = getIntent().getExtras();
 		if (extras != null) {
 			itemId = extras.getLong("ITEM_ID");
@@ -54,5 +58,18 @@ public class ItemDetailActivity extends Activity {
 
 		});
 
+	}
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		// TODO Auto-generated method stub
+		switch(item.getItemId()){
+		case android.R.id.home:
+			Intent homeIntent = new Intent(this, MainActivity.class);
+			homeIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+			startActivity(homeIntent);
+		}
+			
+			
+		return (super.onOptionsItemSelected(item));
 	}
 }
