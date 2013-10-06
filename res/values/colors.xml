@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#000000</color>
+    <color name="white">#ffffff</color>
+	<color name="base_bordo">#800000</color>
+	<color name="base_yellow">#FFDD55</color>
+	<color name="gold_highlight">#FFE993</color>
+	<color name="bordo_highlight">#FF0101</color>
+	<color name="bordo_shadow">#600000</color>
+	<color name="yellow_shadow">#5C4A00</color>
+	<color name="text_disabled">#cccccc</color>
+	<color name="transparent">#00000000</color>
+</resources>

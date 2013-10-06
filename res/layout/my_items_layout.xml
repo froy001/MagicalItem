@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+   <Button
+        android:id="@+id/myItemsLayout_bAddItems"
+        style="@style/btn_add_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        
+        android:background="@drawable/btn_add_item"
+        android:text="+"
+        android:textColor="@color/base_yellow" 
+        android:layout_alignParentBottom="true"/> 
+            
+    <ListView
+        android:id="@+id/lvMyItems"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true" 
+        android:layout_above="@id/myItemsLayout_bAddItems">
+    </ListView>
+    
+    <TextView 
+        android:id="@+id/myItemsLayout_tvAddItem"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/myItemsLayout_bAddItems"
+        android:text="@string/tv_add_a_new_item"
+        style="@style/lv_item_secondary_text"
+        android:textSize="36sp"
+        android:layout_alignTop="@id/myItemsLayout_bAddItems"
+        />
+
+   
+
+</RelativeLayout>
