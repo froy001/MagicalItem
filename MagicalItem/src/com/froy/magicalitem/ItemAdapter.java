@@ -14,7 +14,7 @@ public class ItemAdapter extends BaseAdapter {
 	private final ArrayList<Item> rows;
 	private final Context mContext;
 	
-	private final String TAG = "com.froy.magicalitem.ItemAdapter";
+	private final String TAG = ItemAdapter.class.getSimpleName();
 
 	public ItemAdapter(final Context context, final int itemResId,
 			final ArrayList<Item> items) {

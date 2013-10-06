@@ -25,14 +25,28 @@ import com.froy.magicalitem.R.color;
 import com.qustom.dialog.FroyQustomDialogBuilder;
 import com.qustom.dialog.QustomDialogBuilder;
 
+/**
+ * <h1>MyItemAdapter</h1>
+ * @author David Fradis
+ * 
+ * List to View adapter
+ *
+ */
+
 public class MyItemAdapter extends BaseAdapter implements OnClickListener {
 
 	private static List<MyItem> rows;
 	private static Context mContext;
 	private ViewHolder holder;
-	private final String TAG = "com.froy.magicalitem.ItemAdapter";
+	private final String TAG = MyItemAdapter.class.getSimpleName();
 	private final String CHARGES_MESSAGE = "charges left: ";
 
+	/**
+	 * 
+	 * @param context - The relevant context
+	 * @param itemResId - the layout for the list
+	 * @param items - the items to be displayeds
+	 */
 	public MyItemAdapter(final Context context, final int itemResId,
 			final List<MyItem> items) {
 		super();
@@ -61,8 +75,6 @@ public class MyItemAdapter extends BaseAdapter implements OnClickListener {
 	public View getView(int position, View convertView, ViewGroup parent) {
 
 		LayoutInflater mInflater = LayoutInflater.from(parent.getContext());
-		// LayoutInflater mInflater = (LayoutInflater) parent.getContext()
-		// .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
 		if (convertView == null) {
 
@@ -112,12 +124,12 @@ public class MyItemAdapter extends BaseAdapter implements OnClickListener {
 	}
 
 	public void refresh(final List<MyItem> newList) {
+		
 		MyItemAdapter.rows = newList;
 
 		if (rows.isEmpty())
 			Log.d("refresh", "rows is empty");
 		super.notifyDataSetChanged();
-
 	}
 
 	/**
@@ -234,17 +246,13 @@ public class MyItemAdapter extends BaseAdapter implements OnClickListener {
 	// add charges to item.
 
 	public static boolean enterCharges(final Context context, final MyItem item) {
-		// TODO Auto-generated method stub
+		
+		// TODO Fix the charges so that items with no chrges are writen without popping altertDialog
+		
 		QustomDialogBuilder alert = new QustomDialogBuilder(context);
 		final MyItemManager mItemManager = new MyItemManager(context);
 		final MyItem mItem = item;
 		boolean result = false;
-		Log.d(MyItemAdapter.class.getSimpleName(),"mItem.getItemId() = "+mItem.getItemId());
-//		ItemManager im = new ItemManager(context);
-//		Item fullItem= new Item(mItem.getItemId());
-//		Log.d(MyItemAdapter.class.getSimpleName(),"mItem.fullItemId() = "+fullItem.getId());
-//		fullItem=im.getItem(mItem.getItemId());
-//		Log.i(MyItemAdapter.class.getSimpleName(), "fullItem is: "+ fullItem.getName()+" and its id is: " + fullItem.getId());
 		alert.setTitle("Test this title");
 		alert.setMessage(R.string.add_item_dialog_message);
 		alert.setTitleColor("#ff0101");
@@ -257,9 +265,11 @@ public class MyItemAdapter extends BaseAdapter implements OnClickListener {
 		
 		alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
 			public void onClick(DialogInterface dialog, int whichButton) {
+				
 				// make sure that the input is not empty
 				if (input.getText().length() > 0) {
 					String value = input.getText().toString();
+					
 					// check that input is not zero
 					if (value.equals("0")) {
 						showCancelAlert(context, "Don't use Zero",
@@ -291,7 +301,7 @@ public class MyItemAdapter extends BaseAdapter implements OnClickListener {
 
 			@Override
 			public void onFocusChange(View v, boolean hasFocus) {
-				// TODO Auto-generated method stub
+				
 				if (hasFocus) {
 					dialog.getWindow()
 							.setSoftInputMode(
@@ -310,7 +320,7 @@ public class MyItemAdapter extends BaseAdapter implements OnClickListener {
 
 	private static void showCancelAlert(Context mContext, String title,
 			String message) {
-		// TODO Auto-generated method stub
+
 		AlertDialog.Builder alert = new AlertDialog.Builder(mContext);
 
 		alert.setTitle(title);

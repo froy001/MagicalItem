@@ -1,6 +1,5 @@
 package com.froy.magicalitem;
 
-import java.sql.SQLWarning;
 import java.util.ArrayList;
 
 import android.content.ContentValues;
@@ -22,12 +21,10 @@ public class MyItemManager {
 	private static final String MYITEM_ID = "item_id";
 	private static final String CHARGES = "charges";
 	private static final String ITEM_NAME = "name";
-	private static final String ITEM_CL = "caster_level";
 	private static final String ITEM_CATEGORY = "category";
-
-	// private static final String SELECT_ITEM = "SELECT " + ID + ", " +
-	// MYITEM_ID
-	// + ", " + CHARGES + " FROM " + MYITEM_TABLE + " ;";
+	
+	// Select all user inventory items
+	//TODO select only the ones that are >0
 	private static final String SELECT_MYITEMS = "SELECT " + MYITEM_TABLE + "."
 			+ ID + ", " + MYITEM_TABLE + "." + MYITEM_ID + ", " + MYITEM_TABLE
 			+ "." + CHARGES + ", " + ITEM_TABLE + "." + ITEM_NAME + ", "
@@ -35,11 +32,10 @@ public class MyItemManager {
 			+ MYITEM_TABLE + " WHERE " + ITEM_TABLE + "." + ID + "="
 			+ MYITEM_TABLE + "." + MYITEM_ID +/** " AND " +  MYITEM_TABLE + "."
 			+ CHARGES + ">0" + **/ " ;";
-	private final String SELECT_EMPTY_ITEMS = "SELECT * FROM " + MYITEM_TABLE
-			+ " WHERE " + CHARGES + " < 1;";
+	
+	private static final String TAG = MyItemManager.class.getSimpleName();
 
-	private static final String TAG = "MyItemManager.java";
-
+	//Object constructor
 	public MyItemManager(Context context) {
 		this.mContext = context;
 		dbHelper = new DndDB(mContext);
@@ -89,7 +85,7 @@ public class MyItemManager {
 	
 
 	/**
-	 * Fire a charge of the item
+	 * Fire one charge of the item
 	 * 
 	 * @param myItemId
 	 *            the inventory item id (my_items._id)
@@ -152,34 +148,29 @@ public class MyItemManager {
 		crsr.moveToFirst();
 
 		while (!crsr.isAfterLast()) {
-			// Log.d(TAG, "start for loop");
-
 			mItems.add(new MyItem(crsr.getLong(crsr.getColumnIndex(ID)), crsr
 					.getLong(crsr.getColumnIndex(MYITEM_ID)), crsr.getInt(crsr
 					.getColumnIndex(CHARGES)), crsr.getString(crsr
 					.getColumnIndex(ITEM_NAME)), crsr.getString(crsr
 					.getColumnIndex(ITEM_CATEGORY))));
-
 			crsr.moveToNext();
-
 		}
-		// Log.d(TAG, "ended for loop");
+
 		dbHelper.close();
 		crsr.close();
 		return mItems;
 	}
 	
 	public boolean deleteItem(Long id){
+
 		//TODO needs a delete function to delete rows from db
-		
 		Long mId = id;
 		SQLiteDatabase sqlite = null;
 		String whereClause = ID + "=" + mId;
-		
 		sqlite = dbHelper.getWritableDatabase();
+		
 		try {
 			sqlite.beginTransaction();
-
 			sqlite.delete(MYITEM_TABLE, whereClause, null);
 			sqlite.setTransactionSuccessful();
 			Log.d("db update", "DB updated");
@@ -191,17 +182,19 @@ public class MyItemManager {
 			sqlite.endTransaction();
 			
 			Log.d("db update", "DB updated sucesfully");
-
 		}
-		if(sqlite !=null)
-		sqlite.close();
+		
+		if(sqlite !=null) sqlite.close();
 		
 		return true;
 	}
+	
 	public boolean deleteEmptyItems(){
+		
 		String whereClause = MYITEM_TABLE+"."+CHARGES + "<=" + 0;
 		SQLiteDatabase sqlite = null;
 		sqlite = dbHelper.getWritableDatabase();
+		
 		try{
 			sqlite.beginTransaction();
 			int rowsDeleted = sqlite.delete(MYITEM_TABLE, whereClause, null);
@@ -213,23 +206,18 @@ public class MyItemManager {
 				sqlite.endTransaction();
 				
 				Log.d("deleteEmptyItems", "DB updated sucesfully");
-			
 		}
-		
-		
-		
+
 		return true;
-		
 	}
-		
-		
-		
 
 	/**
-	 * Strip HTML
+	 * Strips html for editing purposes(the full_text field is html)
+	 * @param html - String
+	 * @return - A string clean from html tags
 	 */
 	public String stripHtml(String html) {
+		
 		return Html.fromHtml(html).toString();
 	}
-
 }

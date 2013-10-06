@@ -23,13 +23,11 @@ public class ItemDetailActivity extends Activity {
 	TextView tvItemDetails;
 	private Long itemId;
 	private String itemDesc;
-	private final String TAG = "com.from.magicalitems.ItemDetail";
+	private final String TAG = ItemDetailActivity.class.getSimpleName();
 	private MyItem mItem;
-	private MyItemManager mItemManager = new MyItemManager(this);
-
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		
 		setContentView(R.layout.item_details);
@@ -39,8 +37,8 @@ public class ItemDetailActivity extends Activity {
 		if (extras != null) {
 			itemId = extras.getLong("ITEM_ID");
 			itemDesc = extras.getString("ITEM_DETAILS");
-
 		}
+		
 		tvItemDetails = (TextView) findViewById(R.id.tvItemDesctiption);
 		tvItemDetails.setText(Html.fromHtml(itemDesc));
 		mItem = new MyItem((Long) null, itemId, -1, null, null);
@@ -62,7 +60,7 @@ public class ItemDetailActivity extends Activity {
 	}
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		// TODO Auto-generated method stub
+
 		switch(item.getItemId()){
 		case android.R.id.home:
 			Intent homeIntent = new Intent(this, MainActivity.class);

@@ -34,6 +34,7 @@ public class MainActivity extends Activity {
 	}
 	
 	public void mainClickMethod(View v){
+		
 		switch (v.getId()){
 		case R.id.bItemlist:
 			Intent i = new Intent("com.froy.magicalitems.LISTITEMS");
@@ -42,15 +43,11 @@ public class MainActivity extends Activity {
 		case R.id.bMyItems:
 			Intent i1 = new Intent("com.froy.magicalitems.MYITEMLIST");
 			startActivity(i1);
-			
 			break;
 		case R.id.bSearchItems:
 			Intent i2 = new Intent("com.froy.magicalitems.SEARCH");
 			startActivity(i2);
-			
 			break;
-		
-		
 		}
 	}
 
@@ -62,7 +59,7 @@ public class MainActivity extends Activity {
 	}
 	
 	private void createDB() {
-		// TODO Auto-generated method stub
+
 		MyDbHelper db = new MyDbHelper(getBaseContext());
 		// creats a db in data/data/packageName/databases from the DB file in
 		// /assets

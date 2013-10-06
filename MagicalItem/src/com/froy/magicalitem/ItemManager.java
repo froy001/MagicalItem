@@ -12,6 +12,12 @@ import android.database.sqlite.SQLiteDatabase;
 import android.text.Html;
 import android.util.Log;
 
+/**
+ * <h1>ItemManager</>
+ * @author froy001
+ *<p>
+ *Data base helper class 
+ */
 public class ItemManager {
 	// private DndDB dbHelper;
 
@@ -88,7 +94,6 @@ public class ItemManager {
 		DndDB dbHelper = new DndDB(mContext);
 
 		try {
-
 			SQLiteDatabase sqlite = dbHelper.getWritableDatabase();
 
 			ContentValues initialValues = new ContentValues();
@@ -156,22 +161,26 @@ public class ItemManager {
 	}
 
 	/**
-	 * Get search result Items
-	 * 
-	 * @return List of Items searched for
+	 * Create an ArrayList of the returned items
+	 * @param context
+	 * @param name - Item name to search for
+	 * @param category - category filter on search
+	 * @return
 	 */
 	public synchronized ArrayList<Item> searchItem(Context context,
 			String name, String category) {
+		
+		//TODO improve search filters to CL and price
 		DndDB dbHelper = new DndDB(context);
 		SQLiteDatabase sqliteDB = dbHelper.getWritableDatabase();
 		ArrayList<Item> items = new ArrayList<Item>();
 		String mName = "";
 		String mCategory = "%";
-		if (name != null)
-			mName = name;
-		if (!category.equals("All"))
-			mCategory = category;
-
+		
+		if (name != null) mName = name;
+		if (!category.equals("All")) mCategory = category;
+		
+		//set search quary for populating ArrayList
 		String searchQuary = "SELECT " + MyConstants.ITEM_ID + ", "
 				+ MyConstants.ITEM_NAME + ", " + MyConstants.ITEM_CATEGORY
 				+ ", " + MyConstants.ITEM_SPECIAL_ABILITY + ", "
@@ -182,15 +191,12 @@ public class ItemManager {
 				+ MyConstants.ITEM_NAME + " LIKE " + "'%" + mName + "%'"
 				+ " AND " + MyConstants.ITEM_CATEGORY + " LIKE '%" + mCategory
 				+ "%'" + " ORDER BY " + MyConstants.ITEM_NAME + " ;";
-		System.out.println(searchQuary);
 
-		Log.d(TAG, "loading cursor");
 		Cursor crsr = sqliteDB.rawQuery(searchQuary, null);
-		Log.d(TAG, "Loaded cursor");
-
 		crsr.moveToFirst();
+		
 		while (!crsr.isAfterLast()) {
-			// Log.d(TAG, "start for loop");
+
 			items.add(new Item(
 					crsr.getLong(crsr.getColumnIndex(MyConstants.ITEM_ID)),
 					crsr.getString(crsr.getColumnIndex(MyConstants.ITEM_NAME)),
@@ -207,19 +213,17 @@ public class ItemManager {
 							.getColumnIndex(MyConstants.ITEM_FULL_TEXT))));
 
 			crsr.moveToNext();
-			// Log.d(TAG, "crsr moved next");
-
 		}
-		Log.d(TAG, "ended for loop");
+
 		dbHelper.close();
 		crsr.close();
 		return items;
 	}
 
 	/**
-	 * Get Item
-	 * 
-	 * @return Item
+	 * get an Item by _id
+	 * @param id - item _id
+	 * @return
 	 */
 	public Item getItem(Long id) {
 		Long mId = id;
@@ -232,16 +236,15 @@ public class ItemManager {
 		for (int i = 0; i < columnNames.length; i++) {
 			logMessage += columnNames[i] + " ;";
 		}
-		Log.i("TAG",
-				" The cursor has " + crsr.getCount()
-						+ " rows \n their values are: " + logMessage
-						+ "\n _id "
-						+ crsr.getLong(crsr.getColumnIndex(ITEM_ID))
-						+ "; name: " + crsr.getString(crsr.getColumnIndexOrThrow(ITEM_NAME)));
+//		Log.i("TAG",
+//				" The cursor has " + crsr.getCount()
+//						+ " rows \n their values are: " + logMessage
+//						+ "\n _id "
+//						+ crsr.getLong(crsr.getColumnIndex(ITEM_ID))
+//						+ "; name: " + crsr.getString(crsr.getColumnIndexOrThrow(ITEM_NAME)));
 
 		Item item = new Item();
 		if (crsr != null) {
-
 			item.setId(crsr.getLong(crsr.getColumnIndex(ITEM_ID)));
 			item.setName(crsr.getString(crsr.getColumnIndex(ITEM_NAME)));
 			item.setCategory(crsr.getString(crsr.getColumnIndex(ITEM_CATEGORY)));

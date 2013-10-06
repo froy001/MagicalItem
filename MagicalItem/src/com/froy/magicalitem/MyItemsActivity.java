@@ -18,6 +18,14 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
+/**
+ * <h1>MyItemsActivity</h1>
+ * 
+ * @author froy001
+ * 
+ * Creates the user inventory UI 
+ * 
+ */
 public class MyItemsActivity extends Activity {
 	private static final String TAG = "MyItemsActivity.java";
 	private MyItemAdapter tableRowAdapter;
@@ -28,33 +36,33 @@ public class MyItemsActivity extends Activity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		
+
 		setContentView(R.layout.my_items_layout);
 		getActionBar().setDisplayHomeAsUpEnabled(true);
-		
+
 		ListView mListView = (ListView) findViewById(R.id.lvMyItems);
 		Button bAddItem = (Button) findViewById(R.id.myItemsLayout_bAddItems);
-		TextView tvAddItem=(TextView) findViewById(R.id.myItemsLayout_tvAddItem);
-		tvAddItem.setTypeface(Typeface.createFromAsset(getAssets(), "fonts/dungeon.ttf"));
+		TextView tvAddItem = (TextView) findViewById(R.id.myItemsLayout_tvAddItem);
+		tvAddItem.setTypeface(Typeface.createFromAsset(getAssets(),
+				"fonts/dungeon.ttf"));
 		itemMgr = new MyItemManager(getApplicationContext());
 
 		// get the values from database\
 		itemMgr.deleteEmptyItems();
 		myItems = itemMgr.getItems();
+
 		if (bAddItem.equals(null))
 			Log.i("MyItemsActivity", "Button is null");
 		bAddItem.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
-
 				Intent i = new Intent("com.froy.magicalitems.LISTITEMS");
 				startActivity(i);
-
 			}
 		});
-
+		
+		// creat list view
 		try {
 			tableRowAdapter = new MyItemAdapter(this,
 					R.layout.my_items_list_layout_linear, myItems);
@@ -63,17 +71,17 @@ public class MyItemsActivity extends Activity {
 			Log.e(ex.toString(), ex.toString());
 		}
 	}
+
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		// TODO Auto-generated method stub
-		switch(item.getItemId()){
+		switch (item.getItemId()) {
 		case android.R.id.home:
 			Intent homeIntent = new Intent(this, MainActivity.class);
 			homeIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 			startActivity(homeIntent);
 		}
-			
-			
+
 		return (super.onOptionsItemSelected(item));
 	}
 }

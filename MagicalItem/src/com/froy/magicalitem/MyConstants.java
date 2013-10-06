@@ -2,9 +2,14 @@ package com.froy.magicalitem;
 
 import android.app.Application;
 
+/**
+ * Application wide constants
+ * 
+ * @author froy001
+ *
+ */
 public class MyConstants extends Application {
 
-	
 	public static final String CURRENT_SCHEMA_PACKAGE = "com.magicItem.db";
 	// TODO Update this to your Android projects base source directory
 	public static final String SCHEMA_OUTPUT_DIR = "../MagicalItem/src-gen";
@@ -24,6 +29,4 @@ public class MyConstants extends Application {
 	public static final String ITEM_PREQ = "prereq";
 	public static final String ITEM_COST = "cost";
 	public static final String ITEM_FULL_TEXT = "full_text";
-	
-
 }

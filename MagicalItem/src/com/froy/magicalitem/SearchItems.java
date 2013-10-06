@@ -18,6 +18,13 @@ import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+/**
+ * 
+ * @author froy001
+ * 
+ *         This activity is responsible for processing item search
+ * 
+ */
 public class SearchItems extends Activity {
 
 	private SQLiteDatabase db;
@@ -39,6 +46,9 @@ public class SearchItems extends Activity {
 		setContentView(R.layout.search_items);
 		getActionBar().setDisplayHomeAsUpEnabled(true);
 
+		// clear the settings at the onCreae call, user doesn't need preferences
+		// from last use.
+		// TODO test if setting is null - don;t process it otherwise
 		SharedPreferences setting = getSharedPreferences("setting", 0);
 		SharedPreferences.Editor editor = setting.edit();
 		editor.clear();
@@ -88,7 +98,6 @@ public class SearchItems extends Activity {
 	}
 
 	private void setSpinner() {
-		// TODO Auto-generated method stub
 
 		Cursor c = db.query(MyConstants.CATEGORY_TABLE, null, null, null, null,
 				null, mOrderBy, null);
@@ -109,23 +118,21 @@ public class SearchItems extends Activity {
 	}
 
 	private void setSpinnerListener() {
-		// TODO Auto-generated method stub
+
 		itemCategory_s.setOnItemSelectedListener(new OnItemSelectedListener() {
 
 			@Override
 			public void onItemSelected(AdapterView<?> arg0, View arg1,
 					int arg2, long id) {
-				// TODO Auto-generated method stub
+
 				TextView textView = (TextView) itemCategory_s.getSelectedView();
 				if (textView != null) {
 					mCategorySearchTerm = textView.getText().toString();
 				}
-
 			}
 
 			@Override
 			public void onNothingSelected(AdapterView<?> arg0) {
-				// TODO Auto-generated method stub
 
 			}
 		});
@@ -173,7 +180,7 @@ public class SearchItems extends Activity {
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		// TODO Auto-generated method stub
+		// Navigate Home
 		switch (item.getItemId()) {
 		case android.R.id.home:
 			Intent homeIntent = new Intent(this, MainActivity.class);

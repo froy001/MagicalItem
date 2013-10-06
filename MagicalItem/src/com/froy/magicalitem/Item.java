@@ -1,9 +1,5 @@
 package com.froy.magicalitem;
 
-import android.os.Parcel;
-import android.os.Parcelable;
-import android.text.Html;
-
 public class Item  {
 
 	private long id;
