@@ -1,0 +1,1 @@
+10-06 14:58:31.687: E/AndroidRuntime(5508): java.lang.NoClassDefFoundError: android.support.v4.widget.SimpleCursorAdapter
