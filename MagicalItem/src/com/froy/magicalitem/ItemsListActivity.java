@@ -1,27 +1,14 @@
 package com.froy.magicalitem;
 
-import java.security.PublicKey;
 import java.util.ArrayList;
-import java.util.List;
-
-import javax.xml.datatype.Duration;
-
-import android.app.ActionBar;
-import android.app.ActionBar.OnNavigationListener;
 import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.widget.SimpleCursorAdapter.ViewBinder;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.ListAdapter;
-import android.widget.ListView;
-import android.widget.PopupMenu.OnMenuItemClickListener;
-import android.widget.Toast;
 
 public class ItemsListActivity extends ListActivity {
 
