@@ -43,7 +43,14 @@
             android:name=".SearchItems"
             android:configChanges="orientation"
             android:label="@string/app_name"
+            android:parentActivityName="com.froy.magicalitem.MainActivity"
             android:screenOrientation="portrait" >
+
+            <!-- Parent activity meta-data to support 4.0 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.froy.magicalitem.MainActivity" />
+
             <intent-filter>
                 <action android:name="com.froy.magicalitems.SEARCH" />
 
@@ -54,7 +61,14 @@
             android:name=".ManageCategoriesActivity"
             android:configChanges="orientation"
             android:label="@string/app_name"
+            android:parentActivityName="com.froy.magicalitem.MainActivity"
             android:screenOrientation="portrait" >
+
+            <!-- Parent activity meta-data to support 4.0 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.froy.magicalitem.MainActivity" />
+
             <intent-filter>
                 <action android:name="com.froy.magicalitems.MANAGECATEGORY" />
 
@@ -65,7 +79,14 @@
             android:name=".ItemsListActivity"
             android:configChanges="orientation"
             android:label="@string/app_name"
+            android:parentActivityName="com.froy.magicalitem.MainActivity"
             android:screenOrientation="portrait" >
+
+            <!-- Parent activity meta-data to support 4.0 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.froy.magicalitem.MainActivity" />
+
             <intent-filter>
                 <action android:name="com.froy.magicalitems.LISTITEMS" />
 
@@ -76,7 +97,14 @@
             android:name=".MyItems"
             android:configChanges="orientation"
             android:label="@string/app_name"
+            android:parentActivityName="com.froy.magicalitem.MainActivity"
             android:screenOrientation="portrait" >
+
+            <!-- Parent activity meta-data to support 4.0 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.froy.magicalitem.MainActivity" />
+
             <intent-filter>
                 <action android:name="com.froy.magicalitems.MYITEMS" />
 
@@ -87,7 +115,14 @@
             android:name=".ItemDetailActivity"
             android:configChanges="orientation"
             android:label="@string/app_name"
+            android:parentActivityName="com.froy.magicalitem.MainActivity"
             android:screenOrientation="portrait" >
+
+            <!-- Parent activity meta-data to support 4.0 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.froy.magicalitem.MainActivity" />
+
             <intent-filter>
                 <action android:name="com.froy.magicalitems.ITEMDETAIL" />
 
@@ -98,7 +133,14 @@
             android:name=".MyItemsActivity"
             android:configChanges="orientation"
             android:label="@string/app_name"
+            android:parentActivityName="com.froy.magicalitem.MainActivity"
             android:screenOrientation="portrait" >
+
+            <!-- Parent activity meta-data to support 4.0 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.froy.magicalitem.MainActivity" />
+
             <intent-filter>
                 <action android:name="com.froy.magicalitems.MYITEMLIST" />
 
@@ -109,7 +151,14 @@
             android:name=".ItemsSearchResultActivity"
             android:configChanges="orientation"
             android:label="@string/app_name"
+            android:parentActivityName="com.froy.magicalitem.MainActivity"
             android:screenOrientation="portrait" >
+
+            <!-- Parent activity meta-data to support 4.0 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.froy.magicalitem.MainActivity" />
+
             <intent-filter>
                 <action android:name="com.froy.magicalitems.SEARCHLIST" />
 

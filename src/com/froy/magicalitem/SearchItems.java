@@ -7,6 +7,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v4.widget.SimpleCursorAdapter;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
@@ -21,7 +22,7 @@ public class SearchItems extends Activity {
 
 	private SQLiteDatabase db;
 
-	private String orderBy = "category ASC";
+	private String mOrderBy = "category ASC";
 	private String mCategorySearchTerm;
 	private String mNameSearchTerm;
 
@@ -34,11 +35,15 @@ public class SearchItems extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
+		
 		setContentView(R.layout.search_items);
+		getActionBar().setDisplayHomeAsUpEnabled(true);
+		
 		SharedPreferences setting=getSharedPreferences("setting", 0);
 		SharedPreferences.Editor editor = setting.edit();
 		editor.clear();
 		editor.commit();
+		
 		// Restore UI state from savedInstanceState
 		if (savedInstanceState != null) {
 			String mItemName = savedInstanceState.getString("Name");
@@ -86,7 +91,7 @@ public class SearchItems extends Activity {
 		// TODO Auto-generated method stub
 
 		Cursor c = db.query(MyConstants.CATEGORY_TABLE, null, null, null, null,
-				null, orderBy, null);
+				null, mOrderBy, null);
 		startManagingCursor(c);
 		String[] from = new String[] { "category" };
 
@@ -164,6 +169,20 @@ public class SearchItems extends Activity {
 		SharedPreferences setting = getSharedPreferences("setting", 0);
 		etItemName.setText(setting.getString("name", ""));
 		mCategorySearchTerm = setting.getString("category", "");
+	}
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		// TODO Auto-generated method stub
+		switch(item.getItemId()){
+		case android.R.id.home:
+			Intent homeIntent = new Intent(this, MainActivity.class);
+			homeIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+			startActivity(homeIntent);
+		}
+			
+			
+		return (super.onOptionsItemSelected(item));
 	}
 
 }
