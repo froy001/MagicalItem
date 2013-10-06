@@ -54,6 +54,8 @@ public class ItemAdapter extends BaseAdapter {
 			holder.name.setTypeface(Typeface.createFromAsset(mContext.getAssets(), "fonts/dungeon.ttf"));
 			holder.casterLevel=(TextView) convertView.findViewById(R.id.tvCL);
 			holder.casterLevel.setTypeface(Typeface.createFromAsset(mContext.getAssets(), "fonts/dungeon.ttf"));
+			holder.price=(TextView)convertView.findViewById(R.id.tvPrice_CustomItemListLayout);
+			holder.price.setTypeface(Typeface.createFromAsset(mContext.getAssets(), "fonts/dungeon.ttf"));
 			
 			convertView.setTag(holder);
 
@@ -66,7 +68,8 @@ public class ItemAdapter extends BaseAdapter {
 		holder.name.setTypeface(Typeface.createFromAsset(mContext.getAssets(), "fonts/dungeon.ttf"));
 		holder.casterLevel.setText("CL: " + row.getCasterLevel());
 		holder.casterLevel.setTypeface(Typeface.createFromAsset(mContext.getAssets(), "fonts/dungeon.ttf"));
-		
+		holder.price.setText("Price: "+row.getPrice());
+		holder.price.setTypeface(Typeface.createFromAsset(mContext.getAssets(), "fonts/dungeon.ttf"));
 		return convertView;
 
 	}
@@ -84,7 +87,7 @@ public class ItemAdapter extends BaseAdapter {
 		}
 	}
 	static class ViewHolder{
-		TextView name, casterLevel;
+		TextView name, casterLevel, price;
 	}
 
 }
